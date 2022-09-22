@@ -1,0 +1,142 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-image: url(/happyfrog/resources/images/leaves.webp);
+}
+
+/*그리드 설정*/
+.grid-container {
+    padding: 0.63em;
+    display: grid;
+    gap: 0.31em;
+    grid-template-rows: 4.38em 50em;
+}
+
+.grid-item {
+    padding: 0.31em;
+    /* border: 0.19em solid black; */
+    color: green;
+}
+
+/*헤더 설정*/
+.header {
+    color: green;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: whitesmoke;
+
+}
+.logo span,
+a {
+    color: green;
+    float: left;
+    text-align: center;
+    padding: 0.75em;
+    text-decoration: none;
+    font-size: 1.13em;
+    line-height: 1.56em;
+    border-radius: 0.25em;
+}
+
+.header a.active {
+    background-color: #7DCE13;
+    color: white;
+}
+
+.header a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.header a.active {
+    background-color: #7DCE13;
+    color: white;
+}
+
+img {
+    width: 3.44em;
+    height: 3.44em;
+}
+
+/* Full-width input fields */
+input[type=password],
+input[type=text] {
+    width: 100%;
+    padding: 0.94em;
+    margin: 0.31em 0 1.38em;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+.grid-item.signin {
+    color: black;
+    margin-top: 1em;
+}
+
+input[type=password]:focus,
+input[type=text]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+hr {
+    border: 0.06em solid #f1f1f1;
+    margin-bottom: 1.56em;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color:  #7DCE13;
+    color: white;
+    padding: 0.88em 1.25em;
+    margin: 0.50em 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+button:hover {
+    opacity: 1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    padding: 0.88em 1.25em;
+    background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn,
+.signupbtn {
+    float: right;
+    width: 10%;
+}
+
+/* Add padding to container elements */
+.container {
+    padding: 1em;
+}
+
+/* Clear floats */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+@media screen and (max-width: 47.94em) {
+    .cancelbtn,
+    .signupbtn {
+        width: 7em;
+    }
+
+    .grid-item.signin{
+        width: 100%;
+    }
+}
