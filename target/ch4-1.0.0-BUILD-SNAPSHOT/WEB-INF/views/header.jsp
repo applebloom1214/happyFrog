@@ -4,7 +4,7 @@
 <div class="grid-item">
     <div class="header">
         <div class="logo">
-            <img src="/resources/images/frog.png">
+            <img src="/happyfrog/resources/images/frog.png">
             <span>HappyFrog 0.0</span>
         </div>
         <div class="header-right">

@@ -10,7 +10,7 @@
   <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="/resources/css/index.css" rel="stylesheet">
+  <link href="/happyfrog/resources/css/index.css" rel="stylesheet">
   <title>Document</title>
 
 </head>
@@ -116,7 +116,7 @@
   <!--목록 버튼 & 페이징 & 글쓰기 버튼-->
   <div class="grid-item">
     <div class="paging">
-      <button type="button" class="listBtn">목록</button>
+      <button type="button" class="listBtn" onclick="location.href='<c:url value='/'/>';">목록</button>
       <a href="#">&laquo;</a>
       <a href="#">1</a>
       <a class="active" href="#">2</a>
@@ -129,7 +129,7 @@
       <a href="#">9</a>
       <a href="#">10</a>
       <a href="#">&raquo;</a>
-      <button type="button" class="writeBtn">글쓰기</button>
+      <button type="button" class="writeBtn" onclick="location.href='<c:url value='/write'/>';">글쓰기</button>
     </div>
   </div>
   <!--검색-->
