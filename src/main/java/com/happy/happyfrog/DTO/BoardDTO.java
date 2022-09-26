@@ -18,8 +18,7 @@ public class BoardDTO {
 
     }
 
-    public BoardDTO(Integer bno, String writer, String title) {
-        this.bno = bno;
+    public BoardDTO(String writer, String title) {
         this.writer = writer;
         this.title = title;
     }

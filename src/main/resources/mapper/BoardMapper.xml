@@ -3,8 +3,39 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.happy.happyfrog.DAO.BoardMapper">
+<!--게시물 수 가져오기-->
     <select id="count" resultType="int">
         select count(*) from hf_board;
+    </select>
+
+<!--CREATE-->
+    <select id="insert" parameterType="BoardDTO">
+        insert into hf_board (writer, title)
+        values (#{writer},#{title});
+    </select>
+
+<!--READ-->
+    <select id="selectOne" resultType="BoardDTO" parameterType="int">
+        select * from hf_board
+        where #{bno};
+    </select>
+
+<!--UPDATE-->
+    <update id="update" parameterType="BoardDTO">
+        update hf_board
+        set title = #{title}
+        where #{bno};
+    </update>
+
+<!--DELETE ALL-->
+    <delete id="deleteAll">
+        delete from hf_board;
+    </delete>
+
+<!--테스트용 select 10개-->
+    <select id="select10" resultType="BoardDTO">
+        select * from hf_board
+        where bno between 4 and 13;
     </select>
 
 </mapper>

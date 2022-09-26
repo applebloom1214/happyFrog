@@ -39,76 +39,15 @@
           </div>
         </div>
         <div class="divTableBody">
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_1</div>
-            <div class="divTableCell">cell2_1</div>
-            <div class="divTableCell">cell3_1</div>
-            <div class="divTableCell">cell4_1</div>
-            <div class="divTableCell">cell5_1</div>
-          </div>
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_2</div>
-            <div class="divTableCell">cell2_2</div>
-            <div class="divTableCell">cell3_2</div>
-            <div class="divTableCell">cell4_2</div>
-            <div class="divTableCell">cell5_2</div>
-          </div>
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_3</div>
-            <div class="divTableCell">cell2_3</div>
-            <div class="divTableCell">cell3_3</div>
-            <div class="divTableCell">cell4_3</div>
-            <div class="divTableCell">cell5_3</div>
-          </div>
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_4</div>
-            <div class="divTableCell">cell2_4</div>
-            <div class="divTableCell">cell3_4</div>
-            <div class="divTableCell">cell4_4</div>
-            <div class="divTableCell">cell5_4</div>
-          </div>
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_5</div>
-            <div class="divTableCell">cell2_5</div>
-            <div class="divTableCell">cell3_5</div>
-            <div class="divTableCell">cell4_5</div>
-            <div class="divTableCell">cell5_5</div>
-          </div>
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_6</div>
-            <div class="divTableCell">cell2_6</div>
-            <div class="divTableCell">cell3_6</div>
-            <div class="divTableCell">cell4_6</div>
-            <div class="divTableCell">cell5_6</div>
-          </div>
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_7</div>
-            <div class="divTableCell">cell2_7</div>
-            <div class="divTableCell">cell3_7</div>
-            <div class="divTableCell">cell4_7</div>
-            <div class="divTableCell">cell5_7</div>
-          </div>
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_8</div>
-            <div class="divTableCell">cell2_8</div>
-            <div class="divTableCell">cell3_8</div>
-            <div class="divTableCell">cell4_8</div>
-            <div class="divTableCell">cell5_8</div>
-          </div>
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_9</div>
-            <div class="divTableCell">cell2_9</div>
-            <div class="divTableCell">cell3_9</div>
-            <div class="divTableCell">cell4_9</div>
-            <div class="divTableCell">cell5_9</div>
-          </div>
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_10</div>
-            <div class="divTableCell">cell2_10</div>
-            <div class="divTableCell">cell3_10</div>
-            <div class="divTableCell">cell4_10</div>
-            <div class="divTableCell">cell5_10</div>
-          </div>
+          <c:forEach var="board" items="${board}">
+            <div class="divTableRow">
+              <div class="divTableCell">${board.bno}</div>
+              <div class="divTableCell">${board.title}</div>
+              <div class="divTableCell" pattern="yyyy-MM-dd" type="date">${board.regdate}</div>
+              <div class="divTableCell">${board.hits}</div>
+              <div class="divTableCell">${board.rating}</div>
+            </div>
+          </c:forEach>
         </div>
       </div>
     </div>
