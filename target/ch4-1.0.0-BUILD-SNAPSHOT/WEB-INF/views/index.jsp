@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,76 +40,15 @@
           </div>
         </div>
         <div class="divTableBody">
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_1</div>
-            <div class="divTableCell">cell2_1</div>
-            <div class="divTableCell">cell3_1</div>
-            <div class="divTableCell">cell4_1</div>
-            <div class="divTableCell">cell5_1</div>
-          </div>
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_2</div>
-            <div class="divTableCell">cell2_2</div>
-            <div class="divTableCell">cell3_2</div>
-            <div class="divTableCell">cell4_2</div>
-            <div class="divTableCell">cell5_2</div>
-          </div>
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_3</div>
-            <div class="divTableCell">cell2_3</div>
-            <div class="divTableCell">cell3_3</div>
-            <div class="divTableCell">cell4_3</div>
-            <div class="divTableCell">cell5_3</div>
-          </div>
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_4</div>
-            <div class="divTableCell">cell2_4</div>
-            <div class="divTableCell">cell3_4</div>
-            <div class="divTableCell">cell4_4</div>
-            <div class="divTableCell">cell5_4</div>
-          </div>
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_5</div>
-            <div class="divTableCell">cell2_5</div>
-            <div class="divTableCell">cell3_5</div>
-            <div class="divTableCell">cell4_5</div>
-            <div class="divTableCell">cell5_5</div>
-          </div>
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_6</div>
-            <div class="divTableCell">cell2_6</div>
-            <div class="divTableCell">cell3_6</div>
-            <div class="divTableCell">cell4_6</div>
-            <div class="divTableCell">cell5_6</div>
-          </div>
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_7</div>
-            <div class="divTableCell">cell2_7</div>
-            <div class="divTableCell">cell3_7</div>
-            <div class="divTableCell">cell4_7</div>
-            <div class="divTableCell">cell5_7</div>
-          </div>
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_8</div>
-            <div class="divTableCell">cell2_8</div>
-            <div class="divTableCell">cell3_8</div>
-            <div class="divTableCell">cell4_8</div>
-            <div class="divTableCell">cell5_8</div>
-          </div>
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_9</div>
-            <div class="divTableCell">cell2_9</div>
-            <div class="divTableCell">cell3_9</div>
-            <div class="divTableCell">cell4_9</div>
-            <div class="divTableCell">cell5_9</div>
-          </div>
-          <div class="divTableRow">
-            <div class="divTableCell">cell1_10</div>
-            <div class="divTableCell">cell2_10</div>
-            <div class="divTableCell">cell3_10</div>
-            <div class="divTableCell">cell4_10</div>
-            <div class="divTableCell">cell5_10</div>
-          </div>
+          <c:forEach var="board" items="${board}">
+            <div class="divTableRow">
+              <div class="divTableCell">${board.bno}</div>
+              <div class="divTableCell">${board.title}</div>
+              <div class="divTableCell"><fmt:formatDate value="${board.regdate}" pattern="yyyy-MM-dd" type="date"/></div>
+              <div class="divTableCell">${board.hits}</div>
+              <div class="divTableCell">${board.rating}</div>
+            </div>
+          </c:forEach>
         </div>
       </div>
     </div>
@@ -117,18 +57,11 @@
   <div class="grid-item">
     <div class="paging">
       <button type="button" class="listBtn" onclick="location.href='<c:url value='/'/>';">목록</button>
-      <a href="#">&laquo;</a>
-      <a href="#">1</a>
-      <a class="active" href="#">2</a>
-      <a href="#">3</a>
-      <a href="#">4</a>
-      <a href="#">5</a>
-      <a href="#">6</a>
-      <a href="#">7</a>
-      <a href="#">8</a>
-      <a href="#">9</a>
-      <a href="#">10</a>
-      <a href="#">&raquo;</a>
+      <c:if test="${pageDTO.showPrev}"><a href="#">&laquo;</a></c:if>
+      <c:forEach var="i" begin="${pageDTO.beginPage}" end="${pageDTO.endPage}">
+        <a>${i}</a>
+      </c:forEach>
+      <c:if test="${pageDTO.showNext}"><a href="#">&raquo;</a></c:if>
       <button type="button" class="writeBtn" onclick="location.href='<c:url value='/write'/>';">글쓰기</button>
     </div>
   </div>

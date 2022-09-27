@@ -19,7 +19,7 @@ public class BoardDAOTest {
 
     @Test
     public void count() {
-        assertTrue(boardDAO.count()==2);
+        System.out.println(boardDAO.count());
     }
 
     @Test
@@ -40,12 +40,12 @@ public class BoardDAOTest {
     @Test
     public void insertTest(){
         BoardDTO boardDTO;
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 260; i++) {
             boardDTO = new BoardDTO("writer"+i,"title"+i);
             boardDAO.insert(boardDTO);
         }
 
-        assertTrue(boardDAO.count()==10);
+        assertTrue(boardDAO.count()==260);
     }
 
 
@@ -72,6 +72,18 @@ public class BoardDAOTest {
         int result = boardDAO.update(boardDTO);
 
         assertTrue(result==1);
+    }
+
+    @Test
+    public void selectPage(){
+            int page = 1;
+            Integer offset =  (page-1) * 10;
+            List<BoardDTO> list = boardDAO.selectPage(offset);
+
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
+
     }
 
 

@@ -39,4 +39,8 @@ public class BoardDAO {
         return session.update(namespace+"update",boardDTO);
     }
 
+    public List<BoardDTO> selectPage(Integer offset){
+        return session.selectList(namespace+"selectPage",offset);
+    }
+
 }

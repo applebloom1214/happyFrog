@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,7 +44,7 @@
             <div class="divTableRow">
               <div class="divTableCell">${board.bno}</div>
               <div class="divTableCell">${board.title}</div>
-              <div class="divTableCell" pattern="yyyy-MM-dd" type="date">${board.regdate}</div>
+              <div class="divTableCell"><fmt:formatDate value="${board.regdate}" pattern="yyyy-MM-dd" type="date"/></div>
               <div class="divTableCell">${board.hits}</div>
               <div class="divTableCell">${board.rating}</div>
             </div>
@@ -56,18 +57,11 @@
   <div class="grid-item">
     <div class="paging">
       <button type="button" class="listBtn" onclick="location.href='<c:url value='/'/>';">목록</button>
-      <a href="#">&laquo;</a>
-      <a href="#">1</a>
-      <a class="active" href="#">2</a>
-      <a href="#">3</a>
-      <a href="#">4</a>
-      <a href="#">5</a>
-      <a href="#">6</a>
-      <a href="#">7</a>
-      <a href="#">8</a>
-      <a href="#">9</a>
-      <a href="#">10</a>
-      <a href="#">&raquo;</a>
+      <c:if test="${pageDTO.showPrev}"><a href="#">&laquo;</a></c:if>
+      <c:forEach var="i" begin="${pageDTO.beginPage}" end="${pageDTO.endPage}">
+        <a>${i}</a>
+      </c:forEach>
+      <c:if test="${pageDTO.showNext}"><a href="#">&raquo;</a></c:if>
       <button type="button" class="writeBtn" onclick="location.href='<c:url value='/write'/>';">글쓰기</button>
     </div>
   </div>
