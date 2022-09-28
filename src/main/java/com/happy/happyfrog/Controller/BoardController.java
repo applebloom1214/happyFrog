@@ -17,11 +17,11 @@ public class BoardController {
     BoardDAO boardDAO;
 
     @RequestMapping("/")
-    public String list(@RequestParam(defaultValue = "1") int page, Model m)
+    public String list(@RequestParam(defaultValue = "1") Integer page, Model m)
     {
         PagingDTO pagingDTO = new PagingDTO(boardDAO.count(),page);
-        List<BoardDTO> list = boardDAO.select10();
         int offset = (page-1) * 10;  // (page-1) * pagesize(10이 기본값)
+        List<BoardDTO> list = boardDAO.selectPage(offset);
         m.addAttribute("board",list);
         m.addAttribute("pageDTO",pagingDTO);
         return "index";

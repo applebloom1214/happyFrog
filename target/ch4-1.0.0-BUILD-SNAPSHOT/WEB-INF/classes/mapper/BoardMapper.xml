@@ -3,6 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.happy.happyfrog.DAO.BoardMapper">
+<!-- 중복 사용될 select문 지정 -->
+    <sql id="selectFromBoard">
+        select * from hf_board
+    </sql>
+    
+    
 <!--게시물 수 가져오기-->
     <select id="count" resultType="int">
         select count(*) from hf_board;
@@ -31,6 +37,14 @@
     <delete id="deleteAll">
         delete from hf_board;
     </delete>
+    
+<!--select page-->
+    <select id="selectPage" parameterType="int" resultType="BoardDTO">
+        <include refid="selectFromBoard"/>
+        ORDER BY regdate DESC, bno DESC
+        LIMIT #{offset}, 10;
+    </select>
+    
 
 <!--테스트용 select 10개-->
     <select id="select10" resultType="BoardDTO">

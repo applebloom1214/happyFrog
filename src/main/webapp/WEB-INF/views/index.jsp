@@ -57,11 +57,11 @@
   <div class="grid-item">
     <div class="paging">
       <button type="button" class="listBtn" onclick="location.href='<c:url value='/'/>';">목록</button>
-      <c:if test="${pageDTO.showPrev}"><a href="#">&laquo;</a></c:if>
+      <c:if test="${pageDTO.showPrev}"><a href="<c:url value="/?page=${pageDTO.beginPage-1}"/>">&laquo;</a></c:if>
       <c:forEach var="i" begin="${pageDTO.beginPage}" end="${pageDTO.endPage}">
-        <a>${i}</a>
+        <a class="${pageDTO.page==i ?"active":""}" href="<c:url value="/?page=${i}"/>">${i}</a>
       </c:forEach>
-      <c:if test="${pageDTO.showNext}"><a href="#">&raquo;</a></c:if>
+      <c:if test="${pageDTO.showNext}"><a href="<c:url value="/?page=${pageDTO.endPage+1}"/>">&raquo;</a></c:if>
       <button type="button" class="writeBtn" onclick="location.href='<c:url value='/write'/>';">글쓰기</button>
     </div>
   </div>
@@ -71,8 +71,6 @@
       <form class="search" action="#">
         <select class="search" style="height:42px">
           <option value="title">제목</option>
-          <option value="content">내용</option>
-          <option value="title&content">제목+내용</option>
           <option value="writer">작성자</option>
         </select>
         <input type="text" placeholder="검색할 내용을 입력해주세요" name="search">

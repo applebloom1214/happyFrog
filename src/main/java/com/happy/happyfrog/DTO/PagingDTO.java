@@ -16,7 +16,7 @@ public class PagingDTO {
         this.page = page;
 
         totalPage = totalCnt / PAGE_SIZE + (totalCnt % PAGE_SIZE == 0 ? 0:1);
-        beginPage = page / NAVI_SIZE * NAVI_SIZE +1;
+        beginPage = (page-1) / NAVI_SIZE * NAVI_SIZE +1;
         endPage = Math.min(beginPage + NAVI_SIZE -1,totalPage);
         showPrev = beginPage != 1;
         showNext = endPage != totalPage;

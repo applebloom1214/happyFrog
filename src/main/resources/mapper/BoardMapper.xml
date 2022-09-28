@@ -4,9 +4,9 @@
 
 <mapper namespace="com.happy.happyfrog.DAO.BoardMapper">
 <!-- 중복 사용될 select문 지정 -->
-    <select id="selectFromBoard">
+    <sql id="selectFromBoard">
         select * from hf_board
-    </select>
+    </sql>
     
     
 <!--게시물 수 가져오기-->
