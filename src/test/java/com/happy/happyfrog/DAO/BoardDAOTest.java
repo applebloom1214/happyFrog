@@ -1,6 +1,7 @@
 package com.happy.happyfrog.DAO;
 
 import com.happy.happyfrog.DTO.BoardDTO;
+import com.happy.happyfrog.DTO.SearchDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +85,23 @@ public class BoardDAOTest {
             System.out.println(list.get(i));
         }
 
+    }
+    @Test
+    public void searchCnt(){
+        SearchDTO searchDTO = new SearchDTO(1);
+        int cnt = boardDAO.searchCnt(searchDTO);
+        assertTrue(cnt ==260);
+    }
+
+    @Test
+    public void searchList(){
+        SearchDTO searchDTO = new SearchDTO(1);
+        System.out.println("searchDTO = " + searchDTO);
+        System.out.println("searchDTO.getOffset() = " + searchDTO.getOffset());
+        List<BoardDTO> list = boardDAO.searchList(searchDTO);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
     }
 
 

@@ -44,9 +44,39 @@
         ORDER BY regdate DESC, bno DESC
         LIMIT #{offset}, 10;
     </select>
-    
+<!--검색 쿼리  T - 제목 W - 작성자-->
 
-<!--테스트용 select 10개-->
+    <sql id="search">
+            <if test='option=="T"'>
+               where title LIKE concat('%', #{keyword}, '%')
+            </if>
+            <if test='option=="W"'>
+              where writer LIKE concat('%', #{keyword}, '%')
+            </if>
+    </sql>
+
+    <!--검색결과 카운트-->
+
+    <select id="searchCnt" parameterType="SearchDTO" resultType="int">
+        SELECT count(*)
+        FROM  hf_board
+        <include refid="search"/>
+    </select>
+
+
+
+<!--검색결과 셀렉트-->
+
+    <select id="searchSelectPage" parameterType="SearchDTO" resultType="BoardDto">
+        <include refid="selectFromBoard"/>
+        <include refid="search"/>
+        ORDER BY regdate DESC, bno DESC
+        LIMIT #{offset}, 10
+    </select>
+
+
+
+    <!--테스트용 select 10개-->
     <select id="select10" resultType="BoardDTO">
         select * from hf_board
         where bno between 4 and 13;

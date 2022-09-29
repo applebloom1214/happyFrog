@@ -1,6 +1,7 @@
 package com.happy.happyfrog.DAO;
 
 import com.happy.happyfrog.DTO.BoardDTO;
+import com.happy.happyfrog.DTO.SearchDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -42,5 +43,14 @@ public class BoardDAO {
     public List<BoardDTO> selectPage(Integer offset){
         return session.selectList(namespace+"selectPage",offset);
     }
+
+    public int searchCnt(SearchDTO sd){
+        return session.selectOne(namespace+"searchCnt",sd);
+    }
+
+    public List<BoardDTO> searchList(SearchDTO sd){
+        return session.selectList(namespace+"searchSelectPage",sd);
+    }
+
 
 }

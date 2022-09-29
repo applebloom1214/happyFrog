@@ -68,12 +68,12 @@
   <!--검색-->
   <div class="grid-item">
     <div class="searchD">
-      <form class="search" action="#">
-        <select class="search" style="height:42px">
-          <option value="title">제목</option>
-          <option value="writer">작성자</option>
+      <form class="search" action="<c:url value="/"/>" method="get">
+        <select class="search" style="height:42px" name="option">
+          <option value="T">제목</option>
+          <option value="W">작성자</option>
         </select>
-        <input type="text" placeholder="검색할 내용을 입력해주세요" name="search">
+        <input type="text" placeholder="검색할 내용을 입력해주세요" name="keyword">
         <button type="submit">
           <i class="fa fa-search"></i>
         </button>
