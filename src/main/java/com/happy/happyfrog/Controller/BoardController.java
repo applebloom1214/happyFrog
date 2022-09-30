@@ -33,7 +33,7 @@ public class BoardController {
     public String list(SearchDTO sd, Model m)
     {
         System.out.println("sd = " + sd);
-        PagingDTO pagingDTO = new PagingDTO(boardDAO.searchCnt(sd),sd.getPage());
+        PagingDTO pagingDTO = new PagingDTO(boardDAO.searchCnt(sd),sd);
         // offset 공식 :  (page-1) * pagesize(10이 기본값)
         List<BoardDTO> list = boardDAO.searchList(sd);
         m.addAttribute("board",list);

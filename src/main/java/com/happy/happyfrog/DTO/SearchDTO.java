@@ -1,5 +1,7 @@
 package com.happy.happyfrog.DTO;
 
+import org.springframework.web.util.UriComponentsBuilder;
+
 public class SearchDTO {
     private Integer page = 1; // 검색페이지는 무조건 1페이지부터 시작
     private Integer PAGE_SIZE = 10; // 한 페이지당 보여줄 글갯수, 기본 10
@@ -18,6 +20,19 @@ public class SearchDTO {
         this.page = page;
         this.option = option;
         this.keyword = keyword;
+    }
+
+    public String getQueryString(){
+        return getQueryString(page);
+    }
+
+    public String getQueryString(Integer page){
+        // ?page=1&option="T"&keyword="CONTENT"
+        return UriComponentsBuilder.newInstance()
+                .queryParam("page",page)
+                .queryParam("option",option)
+                .queryParam("keyword",keyword)
+                .build().toString();
     }
 
     public Integer getPage() {

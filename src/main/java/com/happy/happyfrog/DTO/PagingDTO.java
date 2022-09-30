@@ -5,21 +5,29 @@ public class PagingDTO {
     private int NAVI_SIZE = 10; // navi size
     private int totalCnt; // 총 게시물 갯수
     private int totalPage; // 총 페이지 갯수
-    private int page; // 현재 페이지
     private int beginPage; // 시작 페이지
     private int endPage; // 끝 페이지
     private boolean showNext; // 다음 페이지로 이동하는 링크를 표시할 것인지
     private boolean showPrev; // 이전 페이지로 이동하는 링크를 표시할 것인지
+    private SearchDTO searchDTO;
 
-    public PagingDTO(int totalCnt, int page){
+    public PagingDTO(int totalCnt, SearchDTO searchDTO){
         this.totalCnt = totalCnt;
-        this.page = page;
+        this.searchDTO = searchDTO;
 
         totalPage = totalCnt / PAGE_SIZE + (totalCnt % PAGE_SIZE == 0 ? 0:1);
-        beginPage = (page-1) / NAVI_SIZE * NAVI_SIZE +1;
+        beginPage = (searchDTO.getPage()-1) / NAVI_SIZE * NAVI_SIZE +1;
         endPage = Math.min(beginPage + NAVI_SIZE -1,totalPage);
         showPrev = beginPage != 1;
         showNext = endPage != totalPage;
+    }
+
+    public SearchDTO getSearchDTO() {
+        return searchDTO;
+    }
+
+    public void setSearchDTO(SearchDTO searchDTO) {
+        this.searchDTO = searchDTO;
     }
 
     public int getPAGE_SIZE() {
@@ -52,14 +60,6 @@ public class PagingDTO {
 
     public void setTotalPage(int totalPage) {
         this.totalPage = totalPage;
-    }
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
     }
 
     public int getBeginPage() {
@@ -111,7 +111,6 @@ public class PagingDTO {
                 ", NAVI_SIZE=" + NAVI_SIZE +
                 ", totalCnt=" + totalCnt +
                 ", totalPage=" + totalPage +
-                ", page=" + page +
                 ", beginPage=" + beginPage +
                 ", endPage=" + endPage +
                 ", showNext=" + showNext +
