@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,23 +102,15 @@
 
     <div id="reply" class="reply">
         <hr>
-        <div class="comment">
-            ⭐⭐⭐ 😀 나그네 하하하 재밌군요.
-        </div>
-        <div class="comment">
-            ⭐⭐⭐ 😀 나그네 하하하 재밌군요.
-        </div>
-        <div class="comment">
-            ⭐⭐⭐ 😀 나그네 하하하 재밌군요.
-        </div>
-        <div class="comment">
-            ⭐⭐⭐ 😀 나그네 하하하 재밌군요.
-        </div>
-        <div class="comment">
-            ⭐⭐⭐ 😀 나그네 하하하 재밌군요.
-        </div>
+        <c:forEach var="reply" items="${reply}">
+            <div class="comment">
+                ⭐⭐⭐ 😀 ${reply.commenter} ${reply.comment}
+            </div>
+        </c:forEach>
+
         <div class="moreCnt">
-            <button type="button" class="moreBtn">더보기</button>
+            <button type="button" class="moreBtn"><</button>
+            <button type="button" class="moreBtn">></button>
         </div>
     </div>
 </div>
