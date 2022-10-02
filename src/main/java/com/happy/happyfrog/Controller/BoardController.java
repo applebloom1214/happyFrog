@@ -1,12 +1,15 @@
 package com.happy.happyfrog.Controller;
 
 import com.happy.happyfrog.DAO.BoardDAO;
+import com.happy.happyfrog.DAO.ReplyDAO;
 import com.happy.happyfrog.DTO.BoardDTO;
 import com.happy.happyfrog.DTO.PagingDTO;
+import com.happy.happyfrog.DTO.ReplyDTO;
 import com.happy.happyfrog.DTO.SearchDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -16,18 +19,8 @@ import java.util.List;
 public class BoardController {
     @Autowired
     BoardDAO boardDAO;
-
-//    @RequestMapping("/")
-//    public String list(@RequestParam(defaultValue = "1") Integer page, Model m)
-//    {
-//        PagingDTO pagingDTO = new PagingDTO(boardDAO.count(),page);
-//        int offset = (page-1) * 10;  // (page-1) * pagesize(10이 기본값)
-//        List<BoardDTO> list = boardDAO.selectPage(offset);
-//        m.addAttribute("board",list);
-//        m.addAttribute("pageDTO",pagingDTO);
-//        return "index";
-//
-//    }
+    @Autowired
+    ReplyDAO replyDAO;
 
     @RequestMapping("/")
     public String list(SearchDTO sd, Model m)
@@ -39,6 +32,12 @@ public class BoardController {
         m.addAttribute("board",list);
         m.addAttribute("pageDTO",pagingDTO);
         return "index";
+    }
 
+    @GetMapping("/read")
+    public String read(@RequestParam(defaultValue = "0") Integer bno, Model m){
+        List<ReplyDTO> list = replyDAO.read(bno);
+        m.addAttribute("reply",list);
+        return "read";
     }
 }

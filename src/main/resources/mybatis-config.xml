@@ -6,5 +6,6 @@
     <typeAliases>
         <typeAlias type="com.happy.happyfrog.DTO.BoardDTO" alias="BoardDTO"/>
         <typeAlias type="com.happy.happyfrog.DTO.SearchDTO" alias="SearchDTO"/>
+        <typeAlias type="com.happy.happyfrog.DTO.ReplyDTO" alias="ReplyDTO"/>
     </typeAliases>
 </configuration>

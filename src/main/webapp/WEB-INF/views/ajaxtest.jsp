@@ -18,10 +18,11 @@
          },
          body : JSON.stringify(person)
      })
-     .then((response) => response.json())
+     .then((response) => response.text())
      .then((data) => {
+         person2 = JSON.parse(data);
          console.log(data);
-         document.getElementById("data").innerText= person2;
+         document.getElementById("data").innerText= "name : "+person2.name + "age : "+person2.age ;
      })
  }
 </script>

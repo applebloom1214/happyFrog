@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.happy.happyfrog.DAO.ReplyMapper">
+<!--중복 사용될 select문 지정-->
+    <sql id="selectAll">
+        select * from reply;
+    </sql>
+
+<!--댓글수 가져오기-->
+    <select id="count" resultType="int">
+        select count(*) from reply;
+    </select>
+
+<!--테스트용 delete-->
+    <delete id="deleteAll">
+        delete from reply;
+    </delete>
+
+<!--create-->
+    <select id="insert" parameterType="ReplyDTO">
+        insert into reply (comment, commenter)
+        values (#{comment},#{commenter});
+    </select>
+
+<!--read-->
+    <select id="read" parameterType="int" resultType="ReplyDTO">
+        select * from reply
+        where bno = #{bno};
+    </select>
+
+<!--update-->
+    <update id="update" parameterType="ReplyDTO">
+        update reply
+        set comment = #{comment}
+        where cno = #{cno};
+    </update>
+
+
+</mapper>
