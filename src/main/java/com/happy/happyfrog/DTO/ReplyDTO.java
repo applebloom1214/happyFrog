@@ -10,6 +10,7 @@ public class ReplyDTO {
     private String commenter;
     private Date reg_date;
     private Date up_date;
+    private Integer rating;
 
     public ReplyDTO(){
 
@@ -61,7 +62,7 @@ public class ReplyDTO {
         return commenter;
     }
 
-    public void setCommeter(String commenter) {
+    public void setCommenter(String commenter) {
         this.commenter = commenter;
     }
 
@@ -81,15 +82,29 @@ public class ReplyDTO {
         this.up_date = up_date;
     }
 
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+    public String getReply(){
+        return " "+getCommenter()+" "+getComment();
+    }
+
+
     @Override
     public String toString() {
         return "ReplyDTO{" +
                 "cno=" + cno +
                 ", bno=" + bno +
                 ", comment='" + comment + '\'' +
-                ", commeter='" + commenter + '\'' +
+                ", commenter='" + commenter + '\'' +
                 ", reg_date=" + reg_date +
                 ", up_date=" + up_date +
+                ", rating=" + rating +
                 '}';
     }
 }
