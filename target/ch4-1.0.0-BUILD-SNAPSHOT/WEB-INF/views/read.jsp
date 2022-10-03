@@ -89,7 +89,7 @@
             <div id="ratingc">
                 <input type="hidden" id="star">
                 <input type="text" id="comment">
-                <button class="ratingRegister" type="button" onclick="registerCmt()">평점 등록</button>
+                <button class="ratingRegister" type="button" onclick="replyadd()">평점 등록</button>
             </div>
 
         </form>
@@ -104,7 +104,15 @@
         <hr>
         <c:forEach var="reply" items="${reply}">
             <div class="comment">
-                ⭐⭐⭐ 😀 ${reply.commenter} ${reply.comment}
+                😀
+                <c:choose>
+                    <c:when test="${reply.rating==1}">⭐</c:when>
+                    <c:when test="${reply.rating==2}">⭐⭐</c:when>
+                    <c:when test="${reply.rating==3}">⭐⭐⭐</c:when>
+                    <c:when test="${reply.rating==4}">⭐⭐⭐⭐</c:when>
+                    <c:when test="${reply.rating==5}">⭐⭐⭐⭐⭐</c:when>
+                </c:choose>
+                    ${reply.reply}
             </div>
         </c:forEach>
 
@@ -169,6 +177,27 @@
             .style
             .display = "none";
 
+    }
+
+    function replyadd(){
+        let comment = document.getElementById("comment").value;
+        let star = document.getElementById("star").value;
+        let ReplyDTO = {
+            comment : comment,
+            rating : star
+        }
+        console.log(ReplyDTO);
+        fetch("http://localhost/happyfrog/read/adds",{
+            method : "POST",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            },
+            body : JSON.stringify(ReplyDTO)
+        })
+        .then( () =>      document
+            .getElementById("ratingc")
+            .style
+            .display = "none")
     }
 
     $(window).on
