@@ -20,7 +20,14 @@ public class BoardController {
     @Autowired
     BoardDAO boardDAO;
     @Autowired
-    ReplyDAO replyDAO;
+    private ReplyDAO dao;
+
+    @GetMapping("/read")
+    public String read(@RequestParam(defaultValue = "0") Integer bno, Model m){
+        List<ReplyDTO> list = dao.read(bno);
+        m.addAttribute("reply",list);
+        return "read";
+    }
 
     @RequestMapping("/")
     public String list(SearchDTO sd, Model m)
@@ -32,12 +39,5 @@ public class BoardController {
         m.addAttribute("board",list);
         m.addAttribute("pageDTO",pagingDTO);
         return "index";
-    }
-
-    @GetMapping("/read")
-    public String read(@RequestParam(defaultValue = "0") Integer bno, Model m){
-        List<ReplyDTO> list = replyDAO.read(bno);
-        m.addAttribute("reply",list);
-        return "read";
     }
 }

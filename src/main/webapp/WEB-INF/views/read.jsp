@@ -102,19 +102,21 @@
 
     <div id="reply" class="reply">
         <hr>
-        <c:forEach var="reply" items="${reply}">
-            <div class="comment">
-                😀
-                <c:choose>
-                    <c:when test="${reply.rating==1}">⭐</c:when>
-                    <c:when test="${reply.rating==2}">⭐⭐</c:when>
-                    <c:when test="${reply.rating==3}">⭐⭐⭐</c:when>
-                    <c:when test="${reply.rating==4}">⭐⭐⭐⭐</c:when>
-                    <c:when test="${reply.rating==5}">⭐⭐⭐⭐⭐</c:when>
-                </c:choose>
-                    ${reply.reply}
-            </div>
-        </c:forEach>
+        <div class="commentList">
+            <c:forEach var="reply" items="${reply}">
+                <div class="comment">
+                    😀
+                    <c:choose>
+                        <c:when test="${reply.rating==1}">⭐</c:when>
+                        <c:when test="${reply.rating==2}">⭐⭐</c:when>
+                        <c:when test="${reply.rating==3}">⭐⭐⭐</c:when>
+                        <c:when test="${reply.rating==4}">⭐⭐⭐⭐</c:when>
+                        <c:when test="${reply.rating==5}">⭐⭐⭐⭐⭐</c:when>
+                    </c:choose>
+                        ${reply.reply}
+                </div>
+            </c:forEach>
+        </div>
 
         <div class="moreCnt">
             <button type="button" class="moreBtn"><</button>
@@ -136,6 +138,51 @@
 
     }
 
+    function readReply(){
+        let commentList;
+        fetch("http://localhost/happyfrog/read/replies/",{
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            }
+        })
+        .then((response) => response.json())
+        .then((data) => reply = data)
+        .then(() =>{
+            commentList = document.querySelector(".commentList");
+            commentList.innerHTML ="";
+            let str = "";
+            for (let i = 0; i < reply.length; i++) {
+                var replyContent = reply[i].reply;
+                var star = "";
+                switch (reply[i].rating) {
+                    case 1 :
+                        star = ' ⭐';
+                        break;
+                    case 2 :
+                        star = ' ⭐⭐';
+                        break;
+                    case 3 :
+                        star = ' ⭐⭐⭐';
+                        break;
+                    case 4 :
+                        star = ' ⭐⭐⭐⭐';
+                        break;
+                    case 5 :
+                        star = ' ⭐⭐⭐⭐⭐';
+                        break;
+                }
+                str += "<div class='comment'>";
+                str += "😀";
+                str += star;
+                str += replyContent;
+                str += "</div>";
+            }
+            console.log(str);
+            commentList.innerHTML = str;
+            }
+        )
+    }
+
     function replyadd(){
         let comment = document.getElementById("comment").value;
         let star = document.getElementById("star").value;
@@ -144,7 +191,7 @@
             rating : star
         }
         console.log(ReplyDTO);
-        fetch("http://localhost/happyfrog/read/adds",{
+        fetch("http://localhost/happyfrog/read/replies/adds",{
             method : "POST",
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
@@ -155,6 +202,8 @@
             .getElementById("ratingc")
             .style
             .display = "none")
+        .then(() => alert("댓글이 등록되었습니다."))
+        .then(() => readReply())
     }
 
     $(window).on
