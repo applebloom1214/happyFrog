@@ -34,5 +34,9 @@ public class ReplyDAO {
         return session.delete(namespace+"deleteAll");
     }
 
+    public int delete(int cno){
+        return session.delete(namespace+"delete",cno);
+    }
+
 
 }

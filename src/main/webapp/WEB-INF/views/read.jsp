@@ -16,7 +16,7 @@
 </head>
 
 <body>
-<class="grid-container">
+<div class="grid-container">
 <!-- 로고, 인포, 회원가입, 로그인/로그아웃 -->
 <div class="grid-item fixed">
     <div class="header">
@@ -98,6 +98,7 @@
         <button type="button" class="delete">삭제</button>
         <button type="button" class="modify">수정</button>
         <button type="button" class="list">목록</button>
+        <button type="button" class="modalBtn">모달</button>
     </div>
 
     <div id="reply" class="reply">
@@ -124,9 +125,20 @@
         </div>
     </div>
 </div>
+
+
+
 </div>
 </body>
 <script>
+    // window.onload = function (){
+    //     function onClick(){
+    //         document.querySelector('.modal_wrap').style.display ='block';
+    //     }
+    //     document.querySelector('.modalBtn').addEventListener('click',onClick);
+    // }
+
+
     function checkRadio(star) {
         document
             .getElementById("ratingc")
@@ -152,8 +164,9 @@
             commentList.innerHTML ="";
             let str = "";
             for (let i = 0; i < reply.length; i++) {
-                var replyContent = reply[i].reply;
-                var star = "";
+                let replyContent = reply[i].reply;
+                let star = "";
+                let cno = reply[i].cno;
                 switch (reply[i].rating) {
                     case 1 :
                         star = ' ⭐';
@@ -175,13 +188,20 @@
                 str += "😀";
                 str += star;
                 str += replyContent;
+                str += "<button class='replyMod' type='button' onclick='replyMod()'>";
+                str += "&nbsp;수정</button>";
+                str += "<button class='replyDel' type='button' onclick='replyDel()'>";
+                str += "&nbsp;삭제</button>";
+                str += "<input class='cno' type='hidden' value=";
+                str += cno;
+                str += ">";
                 str += "</div>";
             }
-            console.log(str);
+            // console.log(str);
             commentList.innerHTML = str;
             }
         )
-    }
+    } //readReply
 
     function replyadd(){
         let comment = document.getElementById("comment").value;
@@ -190,8 +210,8 @@
             comment : comment,
             rating : star
         }
-        console.log(ReplyDTO);
-        fetch("http://localhost/happyfrog/read/replies/adds",{
+        // console.log(ReplyDTO);
+        fetch("http://localhost/happyfrog/read/replies/",{
             method : "POST",
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
@@ -204,8 +224,23 @@
             .display = "none")
         .then(() => alert("댓글이 등록되었습니다."))
         .then(() => readReply())
-    }
+    } // replyadd
 
-    $(window).on
+
+    function replyDel(){
+        let cno =  document.querySelector(".cno").value;
+        console.log(cno);
+
+        fetch("http://localhost/happyfrog/read/replies/"+cno,{
+            method : "DELETE",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            },
+            body : JSON.stringify(cno)
+        })
+            .then(() => alert("댓글이 삭제되었습니다."))
+            .then(() => readReply())
+    } // replyDel
+
 </script>
 </html>

@@ -16,7 +16,7 @@
 </head>
 
 <body>
-<class="grid-container">
+<div class="grid-container">
 <!-- 로고, 인포, 회원가입, 로그인/로그아웃 -->
 <div class="grid-item fixed">
     <div class="header">
@@ -98,23 +98,26 @@
         <button type="button" class="delete">삭제</button>
         <button type="button" class="modify">수정</button>
         <button type="button" class="list">목록</button>
+        <button type="button" class="modalBtn">모달</button>
     </div>
 
     <div id="reply" class="reply">
         <hr>
-        <c:forEach var="reply" items="${reply}">
-            <div class="comment">
-                😀
-                <c:choose>
-                    <c:when test="${reply.rating==1}">⭐</c:when>
-                    <c:when test="${reply.rating==2}">⭐⭐</c:when>
-                    <c:when test="${reply.rating==3}">⭐⭐⭐</c:when>
-                    <c:when test="${reply.rating==4}">⭐⭐⭐⭐</c:when>
-                    <c:when test="${reply.rating==5}">⭐⭐⭐⭐⭐</c:when>
-                </c:choose>
-                    ${reply.reply}
-            </div>
-        </c:forEach>
+        <div class="commentList">
+            <c:forEach var="reply" items="${reply}">
+                <div class="comment">
+                    😀
+                    <c:choose>
+                        <c:when test="${reply.rating==1}">⭐</c:when>
+                        <c:when test="${reply.rating==2}">⭐⭐</c:when>
+                        <c:when test="${reply.rating==3}">⭐⭐⭐</c:when>
+                        <c:when test="${reply.rating==4}">⭐⭐⭐⭐</c:when>
+                        <c:when test="${reply.rating==5}">⭐⭐⭐⭐⭐</c:when>
+                    </c:choose>
+                        ${reply.reply}
+                </div>
+            </c:forEach>
+        </div>
 
         <div class="moreCnt">
             <button type="button" class="moreBtn"><</button>
@@ -122,9 +125,20 @@
         </div>
     </div>
 </div>
+
+
+
 </div>
 </body>
 <script>
+    // window.onload = function (){
+    //     function onClick(){
+    //         document.querySelector('.modal_wrap').style.display ='block';
+    //     }
+    //     document.querySelector('.modalBtn').addEventListener('click',onClick);
+    // }
+
+
     function checkRadio(star) {
         document
             .getElementById("ratingc")
@@ -136,48 +150,58 @@
 
     }
 
-    function registerCmt() {
-        let comment = document
-            .getElementById("comment")
-            .value;
-        let star = document
-            .getElementById("star")
-            .value;
-        // div 생성
-        const newReply = document.createElement("div");
-        // 리플 붙일 div
-        const replyDiv = document.getElementById("reply");
-
-        let star2;
-
-        if (star == 1) {
-            star2 = "⭐ ";
-        } else if (star == 2) {
-            star2 = "⭐⭐ ";
-        } else if (star == 3) {
-            star2 = "⭐⭐⭐ ";
-        } else if (star == 4) {
-            star2 = "⭐⭐⭐⭐ ";
-        } else {
-            star2 = "⭐⭐⭐⭐⭐ ";
-        }
-
-        star2 += comment;
-
-        //div에 텍스트 붙이기
-        newReply.append(star2);
-        newReply
-            .classList
-            .add("comment");
-
-        replyDiv.append(newReply);
-
-        document
-            .getElementById("ratingc")
-            .style
-            .display = "none";
-
-    }
+    function readReply(){
+        let commentList;
+        fetch("http://localhost/happyfrog/read/replies/",{
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            }
+        })
+        .then((response) => response.json())
+        .then((data) => reply = data)
+        .then(() =>{
+            commentList = document.querySelector(".commentList");
+            commentList.innerHTML ="";
+            let str = "";
+            for (let i = 0; i < reply.length; i++) {
+                let replyContent = reply[i].reply;
+                let star = "";
+                let cno = reply[i].cno;
+                switch (reply[i].rating) {
+                    case 1 :
+                        star = ' ⭐';
+                        break;
+                    case 2 :
+                        star = ' ⭐⭐';
+                        break;
+                    case 3 :
+                        star = ' ⭐⭐⭐';
+                        break;
+                    case 4 :
+                        star = ' ⭐⭐⭐⭐';
+                        break;
+                    case 5 :
+                        star = ' ⭐⭐⭐⭐⭐';
+                        break;
+                }
+                str += "<div class='comment'>";
+                str += "😀";
+                str += star;
+                str += replyContent;
+                str += "<button class='replyMod' type='button' onclick='replyMod()'>";
+                str += "&nbsp;수정</button>";
+                str += "<button class='replyDel' type='button' onclick='replyDel()'>";
+                str += "&nbsp;삭제</button>";
+                str += "<input class='cno' type='hidden' value=";
+                str += cno;
+                str += ">";
+                str += "</div>";
+            }
+            // console.log(str);
+            commentList.innerHTML = str;
+            }
+        )
+    } //readReply
 
     function replyadd(){
         let comment = document.getElementById("comment").value;
@@ -186,8 +210,8 @@
             comment : comment,
             rating : star
         }
-        console.log(ReplyDTO);
-        fetch("http://localhost/happyfrog/read/adds",{
+        // console.log(ReplyDTO);
+        fetch("http://localhost/happyfrog/read/replies/",{
             method : "POST",
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
@@ -198,8 +222,25 @@
             .getElementById("ratingc")
             .style
             .display = "none")
-    }
+        .then(() => alert("댓글이 등록되었습니다."))
+        .then(() => readReply())
+    } // replyadd
 
-    $(window).on
+
+    function replyDel(){
+        let cno =  document.querySelector(".cno").value;
+        console.log(cno);
+
+        fetch("http://localhost/happyfrog/read/replies/"+cno,{
+            method : "DELETE",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            },
+            body : JSON.stringify(cno)
+        })
+            .then(() => alert("댓글이 삭제되었습니다."))
+            .then(() => readReply())
+    } // replyDel
+
 </script>
 </html>

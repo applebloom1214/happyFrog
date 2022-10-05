@@ -25,7 +25,7 @@ public class ReplyController {
     }
 
 
-    @PostMapping("/adds")
+    @PostMapping("/")
     public ResponseEntity<String> write(@RequestBody ReplyDTO dto){
         System.out.println("dto.getReply() = " + dto.getReply());
         System.out.println("dto = " + dto);
@@ -35,6 +35,15 @@ public class ReplyController {
             return new ResponseEntity<>("ADD_OK", HttpStatus.OK);
         }else{
             return new ResponseEntity<>("ADD_FAIL", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/{cno}")
+    public ResponseEntity<String> delete(@PathVariable Integer cno){
+        if(dao.delete(cno) ==1){
+            return new ResponseEntity<>("DEL_OK", HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("DEL_FAIL", HttpStatus.BAD_REQUEST);
         }
     }
 

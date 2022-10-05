@@ -58,4 +58,11 @@ public class ReplyDAOTest {
         assertTrue(result==1);
     }
 
+    @Test
+    public void delete(){
+        int cno = 4;
+        int result = dao.delete(cno);
+        assertTrue(result==1);
+    }
+
 }
