@@ -37,5 +37,12 @@
         where cno = #{cno};
     </update>
 
+<!--댓글 하나 삭제-->
+    <delete id="delete" parameterType="int">
+        delete
+        from reply
+        where cno = #{cno};
+    </delete>
+
 
 </mapper>
