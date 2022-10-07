@@ -16,7 +16,10 @@
 </head>
 
 <body>
-<div class="grid-container">
+<div class="modal">
+    <div class="modal_body">Modal</div>
+</div>
+<%--<div class="grid-container">--%>
 <!-- 로고, 인포, 회원가입, 로그인/로그아웃 -->
 <div class="grid-item fixed">
     <div class="header">
@@ -98,7 +101,6 @@
         <button type="button" class="delete">삭제</button>
         <button type="button" class="modify">수정</button>
         <button type="button" class="list">목록</button>
-        <button type="button" class="modalBtn">모달</button>
     </div>
 
     <div id="reply" class="reply">
@@ -127,17 +129,21 @@
 </div>
 
 
-
-</div>
+<%--</div>--%>
 </body>
 <script>
-    // window.onload = function (){
-    //     function onClick(){
-    //         document.querySelector('.modal_wrap').style.display ='block';
-    //     }
-    //     document.querySelector('.modalBtn').addEventListener('click',onClick);
-    // }
+    const body = document.querySelector('body');
+    const modal = document.querySelector('.modal');
 
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.classList.toggle('show');
+
+            if (!modal.classList.contains('show')) {
+                body.style.overflow = 'auto';
+            }
+        }
+    });
 
     function checkRadio(star) {
         document
@@ -188,10 +194,10 @@
                 str += "😀";
                 str += star;
                 str += replyContent;
-                str += "<button class='replyMod' type='button' onclick='replyMod()'>";
-                str += "&nbsp;수정</button>";
+                str += "<button class='replyMod' type='button'>";
+                str += "수정</button>";
                 str += "<button class='replyDel' type='button' onclick='replyDel()'>";
-                str += "&nbsp;삭제</button>";
+                str += "삭제</button>";
                 str += "<input class='cno' type='hidden' value=";
                 str += cno;
                 str += ">";
@@ -199,7 +205,17 @@
             }
             // console.log(str);
             commentList.innerHTML = str;
-            }
+            const btnOpenPopup = document.querySelectorAll('.replyMod')
+            .forEach(item => {
+                item.addEventListener('click', () => {
+                    modal.classList.toggle('show');
+
+                    if (modal.classList.contains('show')) {
+                        body.style.overflow = 'hidden';
+                    }
+                })
+            })
+         }
         )
     } //readReply
 
