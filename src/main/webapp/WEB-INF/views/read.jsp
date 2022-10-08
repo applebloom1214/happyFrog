@@ -17,7 +17,12 @@
 
 <body>
 <div class="modal">
-    <div class="modal_body">Modal</div>
+    <div class="modal_body">댓글 수정
+    <input type="text" class="modCommenter">
+    <input type="hidden" class="modCno" value="">
+    <button type="button" class="modBtn" onclick="replyMod()">수정</button>
+    <button type="button" class="closeBtn" onclick="modalClose()">닫기</button>
+    </div>
 </div>
 <%--<div class="grid-container">--%>
 <!-- 로고, 인포, 회원가입, 로그인/로그아웃 -->
@@ -145,6 +150,10 @@
         }
     });
 
+    function modalClose(){
+        modal.classList.toggle('show');
+    }
+
     function checkRadio(star) {
         document
             .getElementById("ratingc")
@@ -196,11 +205,11 @@
                 str += replyContent;
                 str += "<button class='replyMod' type='button'>";
                 str += "수정</button>";
-                str += "<button class='replyDel' type='button' onclick='replyDel()'>";
-                str += "삭제</button>";
                 str += "<input class='cno' type='hidden' value=";
                 str += cno;
                 str += ">";
+                str += "<button class='replyDel' type='button' onclick='replyDel(this)'>";
+                str += "삭제</button>";
                 str += "</div>";
             }
             // console.log(str);
@@ -243,8 +252,8 @@
     } // replyadd
 
 
-    function replyDel(){
-        let cno =  document.querySelector(".cno").value;
+    function replyDel(btn){
+        let cno =  btn.nextElementSibling.value;
         console.log(cno);
 
         fetch("http://localhost/happyfrog/read/replies/"+cno,{
@@ -257,6 +266,22 @@
             .then(() => alert("댓글이 삭제되었습니다."))
             .then(() => readReply())
     } // replyDel
+
+
+    function replyMod(btn){
+        let cno = btn.nextSibling.querySelector(".cno").value;
+        console.log(cno);
+
+        fetch("http://localhost/happyfrog/read/replies/"+cno,{
+            method : "DELETE",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            },
+            body : JSON.stringify(cno)
+        })
+            .then(() => alert("댓글이 삭제되었습니다."))
+            .then(() => readReply())
+    } // replyMod
 
 </script>
 </html>
