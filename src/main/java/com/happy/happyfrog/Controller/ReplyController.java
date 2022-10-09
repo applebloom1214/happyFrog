@@ -47,5 +47,15 @@ public class ReplyController {
         }
     }
 
+    @PatchMapping("/{cno}")
+    public ResponseEntity<String> update(@PathVariable Integer cno, @RequestBody ReplyDTO dto){
+        if(dao.update(dto) ==1){
+            return new ResponseEntity<>("DOD_OK", HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("MOD_FAIL", HttpStatus.BAD_REQUEST);
+
+        }
+    }
+
 
 }

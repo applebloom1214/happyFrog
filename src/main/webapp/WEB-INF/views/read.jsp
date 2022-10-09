@@ -127,8 +127,7 @@
         </div>
 
         <div class="moreCnt">
-            <button type="button" class="moreBtn"><</button>
-            <button type="button" class="moreBtn">></button>
+            <button type="button" class="moreBtn" onclick="seeMore()">더보기</button>
         </div>
     </div>
 </div>
@@ -137,6 +136,8 @@
 <%--</div>--%>
 </body>
 <script>
+    let totalReplyCnt = 0;
+    let moreReply = 1; // 더보기 버튼 구현을 위한 전역변수
     const body = document.querySelector('body');
     const modal = document.querySelector('.modal');
 
@@ -152,6 +153,9 @@
 
     function modalClose(){
         modal.classList.toggle('show');
+        if (!modal.classList.contains('show')) {
+            body.style.overflow = 'auto';
+        }
     }
 
     function checkRadio(star) {
@@ -163,6 +167,27 @@
             .getElementById("star")
             .value = star;
 
+    }
+
+    function replyModbtn(btn){
+        let cno = btn.nextElementSibling.value;
+        document.querySelector('.modCno').value = cno;
+        modal.classList.toggle('show');
+
+        if (modal.classList.contains('show')) {
+            body.style.overflow = 'hidden';
+        }
+    }
+
+    function seeMore(){
+        if( moreReply+1 <= Math.ceil(totalReplyCnt/5)){
+            moreReply = moreReply +1;
+            console.log(moreReply);
+            readReply();
+        }else{
+            alert("마지막 댓글 입니다.");
+            return;
+        }
     }
 
     function readReply(){
@@ -178,7 +203,15 @@
             commentList = document.querySelector(".commentList");
             commentList.innerHTML ="";
             let str = "";
-            for (let i = 0; i < reply.length; i++) {
+            let replyLength;
+            totalReplyCnt = reply.length;
+            if(5 * moreReply <= totalReplyCnt){
+                replyLength = 5 * moreReply;
+            }else{
+                replyLength = totalReplyCnt;
+            }
+
+            for (let i = 0; i < replyLength; i++) {
                 let replyContent = reply[i].reply;
                 let star = "";
                 let cno = reply[i].cno;
@@ -203,7 +236,7 @@
                 str += "😀";
                 str += star;
                 str += replyContent;
-                str += "<button class='replyMod' type='button'>";
+                str += "<button class='replyMod' type='button' onclick='replyModbtn(this)'>";
                 str += "수정</button>";
                 str += "<input class='cno' type='hidden' value=";
                 str += cno;
@@ -214,16 +247,6 @@
             }
             // console.log(str);
             commentList.innerHTML = str;
-            const btnOpenPopup = document.querySelectorAll('.replyMod')
-            .forEach(item => {
-                item.addEventListener('click', () => {
-                    modal.classList.toggle('show');
-
-                    if (modal.classList.contains('show')) {
-                        body.style.overflow = 'hidden';
-                    }
-                })
-            })
          }
         )
     } //readReply
@@ -253,15 +276,14 @@
 
 
     function replyDel(btn){
-        let cno =  btn.nextElementSibling.value;
+        let cno =  btn.previousElementSibling.value;
         console.log(cno);
 
         fetch("http://localhost/happyfrog/read/replies/"+cno,{
             method : "DELETE",
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
-            },
-            body : JSON.stringify(cno)
+            }
         })
             .then(() => alert("댓글이 삭제되었습니다."))
             .then(() => readReply())
@@ -269,18 +291,24 @@
 
 
     function replyMod(btn){
-        let cno = btn.nextSibling.querySelector(".cno").value;
+        let cno = document.querySelector('.modCno').value;
+        let comment = document.querySelector('.modCommenter').value;
+        let ReplyDTO = {
+            cno : cno,
+            comment : comment
+        }
         console.log(cno);
 
         fetch("http://localhost/happyfrog/read/replies/"+cno,{
-            method : "DELETE",
+            method : "PATCH",
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
             },
-            body : JSON.stringify(cno)
+            body : JSON.stringify(ReplyDTO)
         })
-            .then(() => alert("댓글이 삭제되었습니다."))
+            .then(() => alert("댓글이 수정되었습니다."))
             .then(() => readReply())
+            .then(() => modalClose())
     } // replyMod
 
 </script>
