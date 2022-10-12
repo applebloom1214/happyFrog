@@ -62,7 +62,7 @@
         <a class="${i == pageDTO.searchDTO.page ?"active":""}" href="<c:url value="/${pageDTO.searchDTO.getQueryString(i)}"/>">${i}</a>
       </c:forEach>
       <c:if test="${pageDTO.showNext}"><a href="<c:url value="/${pageDTO.searchDTO.getQueryString(pageDTO.endPage+1)}"/>">&raquo;</a></c:if>
-      <button type="button" class="writeBtn" onclick="location.href='<c:url value='/write'/>';">글쓰기</button>
+      <button type="button" class="writeBtn" onclick="location.href='<c:url value='/write'/>'">글쓰기</button>
     </div>
   </div>
   <!--검색-->

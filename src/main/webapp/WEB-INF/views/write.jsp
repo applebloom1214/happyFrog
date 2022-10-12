@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,14 +46,27 @@
                 </div>
             </div>
             <div class="writebuttons">
-                <button type="button">취소</button>
-                <button type="button">등록</button>
+                <button type="button" onclick="location.href='<c:url value='/'/>';">취소</button>
+                <button type="button" onclick="file_upload()">등록</button>
             </div>
         </div>
     </div>
 </div>
 </body>
 <script>
+    function file_upload(){
+        let file = document.querySelector(".file").files[0];
+        let form = new FormData();
+        form.append("file",file);
+
+        fetch("http://localhost/happyfrog/write/",{
+            method : "POST",
+            body : form
+        })
+            .then(() => alert("업로드가 되었습니다."))
+
+    }
+
     function DropFile(dropAreaId, fileListId) {
         let dropArea = document.getElementById(dropAreaId);
         let fileList = document.getElementById(fileListId);
