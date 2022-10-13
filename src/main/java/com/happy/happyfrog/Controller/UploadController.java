@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Controller
 public class UploadController {
 
+//    톰캣 에러 수정 중
     @GetMapping("/write")
     public String write(){
         return "write";
