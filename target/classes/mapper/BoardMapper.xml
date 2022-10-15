@@ -15,10 +15,10 @@
     </select>
 
 <!--CREATE-->
-    <select id="insert" parameterType="BoardDTO">
+    <insert id="insert" parameterType="BoardDTO" useGeneratedKeys="true" keyProperty="bno">
         insert into hf_board (writer, title)
         values (#{writer},#{title});
-    </select>
+    </insert>
 
 <!--READ-->
     <select id="selectOne" resultType="BoardDTO" parameterType="int">

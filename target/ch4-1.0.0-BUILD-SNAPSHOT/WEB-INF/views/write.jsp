@@ -23,7 +23,7 @@
         <div class="write">
             <div class="title">
                 <label>제목</label>
-                <input type="text" placeholder="제목을 입력해주세요">
+                <input type="text" class="titleText" placeholder="제목을 입력해주세요">
             </div>
             <div class="upload">
                 <div id="root">
@@ -57,7 +57,10 @@
     function file_upload(){
         let file = document.querySelector(".file").files[0];
         let form = new FormData();
+        let text = document.querySelector('.titleText').value;
+
         form.append("file",file);
+        form.append("title",text);
 
         fetch("http://localhost/happyfrog/write/",{
             method : "POST",
