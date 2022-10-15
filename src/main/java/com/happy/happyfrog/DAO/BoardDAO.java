@@ -25,7 +25,8 @@ public class BoardDAO {
     }
 
     public int insert(BoardDTO boardDTO){
-        return session.insert(namespace+"insert",boardDTO);
+        session.insert(namespace+"insert",boardDTO);
+        return boardDTO.getBno();
     }
 
     public BoardDTO selectOne(Integer bno){

@@ -1,5 +1,6 @@
 package com.happy.happyfrog.Controller;
 
+import com.happy.happyfrog.DTO.BoardDTO;
 import com.happy.happyfrog.DTO.ReplyDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
+import java.util.UUID;
 
 @Controller
 public class UploadController {
@@ -20,10 +22,13 @@ public class UploadController {
     }
 
     @PostMapping("/write")
-    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file){
+    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file, @RequestParam("title") String text){
         try {
+
+            UUID uuid = UUID.randomUUID();
             String originFilename = file.getOriginalFilename();
             String extName = originFilename.substring(originFilename.lastIndexOf("."),originFilename.length());
+            String saveName = uuid.toString()+"_"+originFilename;
             long size = file.getSize();
 
 
@@ -32,7 +37,7 @@ public class UploadController {
             System.out.println("size : " + size);
 
             if(!file.isEmpty()){
-                File downFile = new File(path,originFilename);
+                File downFile = new File(path,saveName);
                 file.transferTo(downFile);
             }else{
                 return new ResponseEntity<>("UPLOAD_FAIL", HttpStatus.BAD_REQUEST);

@@ -35,7 +35,7 @@ public class BoardDAOTest {
         BoardDTO boardDTO = new BoardDTO("writer","title");
         System.out.println("boardDTO = " + boardDTO);
         int result = boardDAO.insert(boardDTO);
-        assertTrue(result ==1);
+        System.out.println("result = " + result);
     }
 
     @Test
