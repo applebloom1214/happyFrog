@@ -25,16 +25,16 @@ public class UploadController {
     public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file, @RequestParam("title") String text){
         try {
 
+            // 1. text를 가져와서 board 테이블에 insert (기초 기능구현을 위해 작성자와 bno는 아직 없음, 제목만 가져옴 )
+            // 2. 파일을 생성하여 로컬 저장소에 저장함
+            // 3. db에 파일 정보를 저장함 (저장할때 1에서 얻어온 bno를 이용하여 저장)
             UUID uuid = UUID.randomUUID();
             String originFilename = file.getOriginalFilename();
-            String extName = originFilename.substring(originFilename.lastIndexOf("."),originFilename.length());
             String saveName = uuid.toString()+"_"+originFilename;
-            long size = file.getSize();
 
 
             System.out.println("originFilename : " + originFilename);
-            System.out.println("extensionName : " + extName);
-            System.out.println("size : " + size);
+
 
             if(!file.isEmpty()){
                 File downFile = new File(path,saveName);
