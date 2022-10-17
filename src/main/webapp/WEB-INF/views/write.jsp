@@ -67,6 +67,7 @@
             body : form
         })
             .then(() => alert("업로드가 되었습니다."))
+            .then(() => location.href="/happyfrog")
 
     }
 

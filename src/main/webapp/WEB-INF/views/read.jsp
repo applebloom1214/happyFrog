@@ -105,25 +105,13 @@
     <div class="buttons">
         <button type="button" class="delete">삭제</button>
         <button type="button" class="modify">수정</button>
+        <button type="button" class="seeReply" onclick="readReply()">리플보기</button>
         <button type="button" class="list">목록</button>
     </div>
 
     <div id="reply" class="reply">
         <hr>
         <div class="commentList">
-            <c:forEach var="reply" items="${reply}">
-                <div class="comment">
-                    😀
-                    <c:choose>
-                        <c:when test="${reply.rating==1}">⭐</c:when>
-                        <c:when test="${reply.rating==2}">⭐⭐</c:when>
-                        <c:when test="${reply.rating==3}">⭐⭐⭐</c:when>
-                        <c:when test="${reply.rating==4}">⭐⭐⭐⭐</c:when>
-                        <c:when test="${reply.rating==5}">⭐⭐⭐⭐⭐</c:when>
-                    </c:choose>
-                        ${reply.reply}
-                </div>
-            </c:forEach>
         </div>
 
         <div class="moreCnt">
