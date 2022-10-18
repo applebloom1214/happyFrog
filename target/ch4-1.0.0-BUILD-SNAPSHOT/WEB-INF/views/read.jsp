@@ -33,7 +33,7 @@
             <span>HappyFrog 0.0</span>
         </div>
         <div class="header-right">
-            <a class="active" href="#home">Home</a>
+            <a class="active" href="<c:url value='/'/>">Home</a>
             <a href="#signin">SignUp</a>
             <a href="#Login">Login</a>
         </div>
@@ -42,7 +42,7 @@
 <!--글 읽기-->
 <div class="grid-item read">
     <div class="picture">
-        그림
+        <img src="/happyfrog/loadimg?bno=${bno}">
     </div>
     <div class="title">
         <h1 class="title text">제목일까 드립일까 뭐일까</h1>
@@ -105,25 +105,13 @@
     <div class="buttons">
         <button type="button" class="delete">삭제</button>
         <button type="button" class="modify">수정</button>
-        <button type="button" class="list">목록</button>
+        <button type="button" class="seeReply" onclick="readReply()">리플보기</button>
+        <button type="button" class="list" onclick="location.href='<c:url value='/'/>';">목록</button>
     </div>
 
     <div id="reply" class="reply">
         <hr>
         <div class="commentList">
-            <c:forEach var="reply" items="${reply}">
-                <div class="comment">
-                    😀
-                    <c:choose>
-                        <c:when test="${reply.rating==1}">⭐</c:when>
-                        <c:when test="${reply.rating==2}">⭐⭐</c:when>
-                        <c:when test="${reply.rating==3}">⭐⭐⭐</c:when>
-                        <c:when test="${reply.rating==4}">⭐⭐⭐⭐</c:when>
-                        <c:when test="${reply.rating==5}">⭐⭐⭐⭐⭐</c:when>
-                    </c:choose>
-                        ${reply.reply}
-                </div>
-            </c:forEach>
         </div>
 
         <div class="moreCnt">

@@ -82,7 +82,11 @@ img {
     margin-top: 5em;
     width: 50em;
     height: 25em;
-    background-color: blue;
+}
+
+.picture img{
+    width: 50em;
+    height: 25em;
 }
 
 /* title d*/

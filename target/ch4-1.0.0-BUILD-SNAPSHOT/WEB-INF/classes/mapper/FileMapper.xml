@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.happy.happyfrog.DAO.FileMapper">
+    <!--중복 사용될 select문 지정-->
+    <sql id="selectAll">
+        select * from upload_file;
+    </sql>
+
+    <!--테스트용 delete-->
+    <delete id="deleteAll">
+        delete from upload_file;
+    </delete>
+
+    <!--insert-->
+    <select id="insert" parameterType="FileDTO">
+        insert into upload_file (uuid, uploadPath, fileName, bno)
+        values (#{uuid},#{uploadPath},#{fileName},#{bno});
+    </select>
+
+    <!--read-->
+    <select id="read" parameterType="int" resultType="FileDTO">
+        select * from upload_file
+        where bno = #{bno};
+    </select>
+
+    <!--update-->
+    <update id="update" parameterType="FileDTO">
+        update upload_file
+        set uuid = #{uuid}, fileName=#{fileName}
+        where bno = #{bno};
+    </update>
+
+    <!--파일 하나 삭제-->
+    <delete id="delete" parameterType="int">
+        delete
+        from upload_file
+        where bno = #{bno};
+    </delete>
+
+</mapper>

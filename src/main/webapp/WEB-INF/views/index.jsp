@@ -43,7 +43,7 @@
           <c:forEach var="board" items="${board}">
             <div class="divTableRow">
               <div class="divTableCell">${board.bno}</div>
-              <div class="divTableCell">${board.title}</div>
+              <div class="divTableCell"><a href="<c:url value="/read?bno=${board.bno}"/>">${board.title}</a></div>
               <div class="divTableCell"><fmt:formatDate value="${board.regdate}" pattern="yyyy-MM-dd" type="date"/></div>
               <div class="divTableCell">${board.hits}</div>
               <div class="divTableCell">${board.rating}</div>

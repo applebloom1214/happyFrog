@@ -25,6 +25,7 @@ body {
     align-items: center;
     background-color: whitesmoke;
 }
+
 .logo span,
 a {
     color: green;
@@ -145,7 +146,6 @@ form.search::after {
     justify-content: center;
     align-items: center;
     height: 100%;
-
 }
 
 .sort {
@@ -204,6 +204,9 @@ div.blueTable {
 }
 .divTableBody {
     display: table-row-group;
+}
+.divTableCell a{
+    padding: 0;
 }
 
 .divTableHead.bno {
