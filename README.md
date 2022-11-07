@@ -4,7 +4,7 @@
 ◆ 개발언어 : JAVA 11<br> 
 ◆ DB : MYSQL<br> 
 ◆ 개발툴 : VS CODE, IntelliJ<br>
-◆ WAS : TOMCAT 9
+◆ WAS : TOMCAT 9 
   
   
  
