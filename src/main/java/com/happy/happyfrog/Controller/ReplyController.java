@@ -17,9 +17,8 @@ public class ReplyController {
     @Autowired
     private ReplyDAO dao;
 
-    @GetMapping("/")
-    public ResponseEntity<List<ReplyDTO>> list(){
-        int bno = 0;
+    @GetMapping("/{bno}")
+    public ResponseEntity<List<ReplyDTO>> list(@PathVariable Integer bno){
         List<ReplyDTO> list = dao.read(bno);
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
