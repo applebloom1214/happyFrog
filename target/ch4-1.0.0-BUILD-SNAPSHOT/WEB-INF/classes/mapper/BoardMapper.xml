@@ -23,7 +23,7 @@
 <!--READ-->
     <select id="selectOne" resultType="BoardDTO" parameterType="int">
         select * from hf_board
-        where #{bno};
+        where bno = #{bno};
     </select>
 
 <!--UPDATE-->

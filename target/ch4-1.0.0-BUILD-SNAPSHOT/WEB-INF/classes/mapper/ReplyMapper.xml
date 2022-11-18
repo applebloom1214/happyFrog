@@ -20,8 +20,8 @@
 
 <!--create-->
     <select id="insert" parameterType="ReplyDTO">
-        insert into reply (comment, commenter, rating)
-        values (#{comment},#{commenter},#{rating});
+        insert into reply (bno,comment, commenter, rating)
+        values (#{bno},#{comment},#{commenter},#{rating});
     </select>
 
 <!--read-->

@@ -45,7 +45,7 @@
         <img src="/happyfrog/loadimg?bno=${bno}">
     </div>
     <div class="title">
-        <h1 class="title text">제목일까 드립일까 뭐일까</h1>
+        <h1 class="title text">${title}</h1>
     </div>
     <div class="score">
         <h3>⭐<b>X3000</b>
@@ -96,6 +96,7 @@
             </fieldset>
             <div id="ratingc">
                 <input type="hidden" id="star">
+                <input type="hidden" id="bno" value="${bno}">
                 <input type="text" id="comment">
                 <button class="ratingRegister" type="button" onclick="replyadd()">평점 등록</button>
             </div>
@@ -124,6 +125,7 @@
 <%--</div>--%>
 </body>
 <script>
+    let bno = ${bno};
     let totalReplyCnt = 0;
     let moreReply = 1; // 더보기 버튼 구현을 위한 전역변수
     const body = document.querySelector('body');
@@ -180,7 +182,7 @@
 
     function readReply(){
         let commentList;
-        fetch("http://localhost/happyfrog/read/replies/",{
+        fetch("http://localhost/happyfrog/read/replies/"+bno,{
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
             }
@@ -244,7 +246,8 @@
         let star = document.getElementById("star").value;
         let ReplyDTO = {
             comment : comment,
-            rating : star
+            rating : star,
+            bno : bno
         }
         // console.log(ReplyDTO);
         fetch("http://localhost/happyfrog/read/replies/",{
