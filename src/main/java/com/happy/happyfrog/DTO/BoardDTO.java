@@ -10,9 +10,9 @@ public class BoardDTO {
     private String title; // 제목
     private String content; // 내용(추후 이미지가 들어갈 예정)
     private Date regdate; // 등록일
-    private Integer hits; // 조회수
-    private Integer rating; // 평점
-    private Integer rcnt; //댓글수
+    private Integer hits; // 조회수, 읽을 때마다 1 증가
+    private Integer rating; // 평점, 댓글 달때마다 평점만큼 증가
+    private Integer rcnt; //댓글수, 댓글 달때마다 1 증가
 
     public BoardDTO(){
 

@@ -1,6 +1,7 @@
 package com.happy.happyfrog.DAO;
 
 import com.happy.happyfrog.DTO.BoardDTO;
+import com.happy.happyfrog.DTO.ReplyDTO;
 import com.happy.happyfrog.DTO.SearchDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,14 @@ public class BoardDAO {
 
     public int update(BoardDTO boardDTO){
         return session.update(namespace+"update",boardDTO);
+    }
+
+    public int updateHits(Integer bno){
+        return session.update("updateHits",bno);
+    }
+
+    public int updateRating(ReplyDTO dto){
+        return session.update("updateRating", dto);
     }
 
     public List<BoardDTO> selectPage(Integer offset){

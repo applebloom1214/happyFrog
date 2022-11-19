@@ -1,6 +1,7 @@
 package com.happy.happyfrog.DAO;
 
 import com.happy.happyfrog.DTO.BoardDTO;
+import com.happy.happyfrog.DTO.ReplyDTO;
 import com.happy.happyfrog.DTO.SearchDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -71,6 +72,23 @@ public class BoardDAOTest {
         boardDTO.setBno(3);
 
         int result = boardDAO.update(boardDTO);
+
+        assertTrue(result==1);
+    }
+
+    @Test
+    public void updateHits(){
+        int bno = 30;
+        int result = boardDAO.updateHits(bno);
+        assertTrue(result==1);
+    }
+
+    @Test
+    public void updateRating(){
+        ReplyDTO dto = new ReplyDTO();
+        dto.setBno(30);
+        dto.setRating(5);
+        int result = boardDAO.updateRating(dto);
 
         assertTrue(result==1);
     }

@@ -1,5 +1,6 @@
 package com.happy.happyfrog.Controller;
 
+import com.happy.happyfrog.DAO.BoardDAO;
 import com.happy.happyfrog.DAO.ReplyDAO;
 import com.happy.happyfrog.DTO.ReplyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import java.util.List;
 public class ReplyController {
     @Autowired
     private ReplyDAO dao;
+    @Autowired
+    private BoardDAO boardDAO;
 
     @GetMapping("/{bno}")
     public ResponseEntity<List<ReplyDTO>> list(@PathVariable Integer bno){
@@ -31,6 +34,7 @@ public class ReplyController {
         String commenter = "테스트중";
         dto.setCommenter(commenter);
         if(dao.insert(dto) == 1){
+            boardDAO.updateRating(dto);
             return new ResponseEntity<>("ADD_OK", HttpStatus.OK);
         }else{
             return new ResponseEntity<>("ADD_FAIL", HttpStatus.BAD_REQUEST);

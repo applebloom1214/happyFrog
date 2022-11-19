@@ -48,7 +48,7 @@
         <h1 class="title text">${title}</h1>
     </div>
     <div class="score">
-        <h3>⭐<b>X3000</b>
+        <h3>⭐<b class="bscore">X${rating}</b>
         </h3>
     </div>
     <div class="rating">
@@ -237,6 +237,7 @@
             }
             // console.log(str);
             commentList.innerHTML = str;
+
          }
         )
     } //readReply

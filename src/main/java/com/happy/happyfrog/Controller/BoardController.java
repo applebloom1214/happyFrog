@@ -29,9 +29,11 @@ public class BoardController {
     public String read(@RequestParam(defaultValue = "0") Integer bno, Model m){
         BoardDTO board = boardDAO.selectOne(bno);
         List<ReplyDTO> list = dao.read(bno);
+        boardDAO.updateHits(bno);
         m.addAttribute("reply",list);
         m.addAttribute("bno",bno);
         m.addAttribute("title",board.getTitle());
+        m.addAttribute("rating",board.getRating());
         return "read";
     }
 
