@@ -30,7 +30,19 @@
     <update id="update" parameterType="BoardDTO">
         update hf_board
         set title = #{title}
-        where #{bno};
+        where bno = #{bno};
+    </update>
+
+    <update id="updateHits" parameterType="int">
+        update hf_board
+        set hits = hits +1
+        where bno = #{bno};
+    </update>
+
+    <update id="updateRating" parameterType="ReplyDTO">
+        update hf_board
+        set rating = rating + #{rating}
+        where bno = #{bno};
     </update>
 
 <!--DELETE ALL-->

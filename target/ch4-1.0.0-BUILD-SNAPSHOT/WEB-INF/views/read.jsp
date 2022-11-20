@@ -48,7 +48,7 @@
         <h1 class="title text">${title}</h1>
     </div>
     <div class="score">
-        <h3>⭐<b>X3000</b>
+        <h3>⭐<b>X</b><b class="bscore">${rating}</b>
         </h3>
     </div>
     <div class="rating">
@@ -180,6 +180,15 @@
         }
     }
 
+    function plusScore(rating){   // 댓글 등록시 평점을 실시간으로 증가시켜준다.
+        let addrating = parseInt(rating);
+        let score = parseInt(document.querySelector('.bscore').textContent);
+        score += addrating;
+        score = String(score);
+        console.log(score);
+        document.querySelector('.bscore').textContent = score;
+    }
+
     function readReply(){
         let commentList;
         fetch("http://localhost/happyfrog/read/replies/"+bno,{
@@ -237,6 +246,7 @@
             }
             // console.log(str);
             commentList.innerHTML = str;
+
          }
         )
     } //readReply
@@ -262,6 +272,7 @@
             .style
             .display = "none")
         .then(() => alert("댓글이 등록되었습니다."))
+        .then(() => plusScore(star))
         .then(() => readReply())
     } // replyadd
 

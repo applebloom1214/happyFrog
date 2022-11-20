@@ -50,6 +50,10 @@ public class BoardDAO {
         return session.update("updateRating", dto);
     }
 
+    public int deleteRating(ReplyDTO dto){
+        return session.update("deleteRating", dto);
+    }
+
     public List<BoardDTO> selectPage(Integer offset){
         return session.selectList(namespace+"selectPage",offset);
     }
