@@ -26,6 +26,10 @@ public class ReplyDAO {
         return session.selectList(namespace+"read",bno);
     }
 
+    public ReplyDTO readCno(int cno){
+        return session.selectOne(namespace+"readCno",cno);
+    }
+
     public int update(ReplyDTO dto){
         return session.update(namespace+"update",dto);
     }

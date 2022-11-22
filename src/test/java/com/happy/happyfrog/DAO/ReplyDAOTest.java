@@ -50,6 +50,12 @@ public class ReplyDAOTest {
     }
 
     @Test
+    public void readCno(){
+        ReplyDTO dto = dao.readCno(36);
+        assertTrue(dto.getComment().equals("개발중"));
+    }
+
+    @Test
     public void update(){
         ReplyDTO dto = new ReplyDTO("수정","작성자");
         dto.setCno(2);

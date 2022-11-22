@@ -43,7 +43,11 @@ public class ReplyController {
 
     @DeleteMapping("/{cno}")
     public ResponseEntity<String> delete(@PathVariable Integer cno){
+
+        ReplyDTO dto = dao.readCno(cno);
+
         if(dao.delete(cno) ==1){
+            boardDAO.deleteRating(dto);
             return new ResponseEntity<>("DEL_OK", HttpStatus.OK);
         }else{
             return new ResponseEntity<>("DEL_FAIL", HttpStatus.BAD_REQUEST);
