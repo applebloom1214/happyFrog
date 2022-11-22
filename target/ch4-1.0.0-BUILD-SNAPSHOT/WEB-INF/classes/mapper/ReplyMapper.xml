@@ -30,6 +30,12 @@
         where bno = #{bno};
     </select>
 
+<!--cno로 리플 하나 읽기-->
+    <select id="readCno" parameterType="int" resultType="ReplyDTO">
+        select * from reply
+        where cno = #{cno};
+    </select>
+
 <!--update-->
     <update id="update" parameterType="ReplyDTO">
         update reply

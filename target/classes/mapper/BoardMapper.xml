@@ -33,17 +33,27 @@
         where bno = #{bno};
     </update>
 
+<!--조회수 증가-->
     <update id="updateHits" parameterType="int">
         update hf_board
         set hits = hits +1
         where bno = #{bno};
     </update>
 
+<!--평점 증가-->
     <update id="updateRating" parameterType="ReplyDTO">
         update hf_board
         set rating = rating + #{rating}
         where bno = #{bno};
     </update>
+
+<!--평점 감소-->
+    <update id="deleteRating" parameterType="ReplyDTO">
+        update hf_board
+        set rating = rating - #{rating}
+        where bno = #{bno};
+    </update>
+
 
 <!--DELETE ALL-->
     <delete id="deleteAll">

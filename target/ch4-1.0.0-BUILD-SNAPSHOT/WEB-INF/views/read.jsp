@@ -189,6 +189,15 @@
         document.querySelector('.bscore').textContent = score;
     }
 
+    function minusScore(rating){   // 댓글 등록시 평점을 실시간으로 증가시켜준다.
+        let addrating = parseInt(rating);
+        let score = parseInt(document.querySelector('.bscore').textContent);
+        score -= addrating;
+        score = String(score);
+        console.log(score);
+        document.querySelector('.bscore').textContent = score;
+    }
+
     function readReply(){
         let commentList;
         fetch("http://localhost/happyfrog/read/replies/"+bno,{
@@ -242,6 +251,9 @@
                 str += ">";
                 str += "<button class='replyDel' type='button' onclick='replyDel(this)'>";
                 str += "삭제</button>";
+                str += "<input class='rating' type='hidden' value=";
+                str += reply[i].rating;
+                str += ">";
                 str += "</div>";
             }
             // console.log(str);
@@ -279,7 +291,9 @@
 
     function replyDel(btn){
         let cno =  btn.previousElementSibling.value;
+        let star = btn.nextElementSibling.value;
         console.log(cno);
+        console.log(star);
 
         fetch("http://localhost/happyfrog/read/replies/"+cno,{
             method : "DELETE",
@@ -288,6 +302,7 @@
             }
         })
             .then(() => alert("댓글이 삭제되었습니다."))
+            .then(() => minusScore(star))
             .then(() => readReply())
     } // replyDel
 
