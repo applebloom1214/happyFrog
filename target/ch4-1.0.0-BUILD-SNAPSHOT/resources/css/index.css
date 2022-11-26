@@ -16,6 +16,15 @@ body {
     /* border: 0.19em solid black; */
     color: green;
 }
+.grid-item.fs{
+    margin: 0;
+    justify-self: center;
+}
+
+.grid-item.fs img{
+    width: 2em;
+    height: 2em;
+}
 
 /*헤더 설정*/
 .header {
@@ -57,6 +66,7 @@ img {
     width: 3.44em;
     height: 3.44em;
 }
+
 
 /*검색 설정*/
 .search {
