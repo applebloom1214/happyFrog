@@ -1,5 +1,6 @@
 package com.happy.happyfrog.Controller;
 
+import com.happy.happyfrog.DAO.APIDAO;
 import com.happy.happyfrog.DAO.BoardDAO;
 import com.happy.happyfrog.DAO.FileDAO;
 import com.happy.happyfrog.DAO.ReplyDAO;
@@ -46,6 +47,7 @@ public class BoardController {
         List<BoardDTO> list = boardDAO.searchList(sd);
         m.addAttribute("board",list);
         m.addAttribute("pageDTO",pagingDTO);
+        m.addAttribute("finedust",new APIDAO().getFinddust());
         return "index";
     }
 
