@@ -8,5 +8,6 @@
         <typeAlias type="com.happy.happyfrog.DTO.SearchDTO" alias="SearchDTO"/>
         <typeAlias type="com.happy.happyfrog.DTO.ReplyDTO" alias="ReplyDTO"/>
         <typeAlias type="com.happy.happyfrog.DTO.FileDTO" alias="FileDTO"/>
+        <typeAlias type="com.happy.happyfrog.DTO.UserDTO" alias="UserDTO"/>
     </typeAliases>
 </configuration>

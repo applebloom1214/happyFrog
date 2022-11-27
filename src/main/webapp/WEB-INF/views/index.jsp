@@ -21,8 +21,9 @@
   <jsp:include page="header.jsp"/>
   <!-- API -->
   <div class="grid-item fs">
-    <br> <h4><b>현 시각 서울시 미세먼지 현황</b></h4>
-        &nbsp;${finedust.value}
+    <h4><b>현 시각 서울시 미세먼지 현황</b>
+        <br>
+        &nbsp;${finedust.value}㎍/㎥(1h)
         &nbsp;${finedust.status}
             <c:if test="${finedust.status=='좋음'}">
               <img src="/happyfrog/resources/images/1.png">
@@ -32,7 +33,7 @@
             </c:if>
             <c:if test="${finedust.status=='나쁨'}">
               <img src="/happyfrog/resources/images/3.png">
-            </c:if>
+            </c:if></h4>
   </div>
   <!--게시판, 정렬 버튼-->
   <div class="grid-item">
