@@ -8,9 +8,7 @@ import com.happy.happyfrog.DTO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -65,5 +63,17 @@ public class BoardController {
             sos.write(buffer,0,length);
         }
         return null;
+    }
+
+
+    @GetMapping("/signin")
+    public String signin(){
+        return "signin";
+    }
+
+    @PostMapping("/signin")
+    public String signinCheck(UserDTO dto){
+        System.out.println("dto = " + dto);
+        return "redirect:/";
     }
 }
