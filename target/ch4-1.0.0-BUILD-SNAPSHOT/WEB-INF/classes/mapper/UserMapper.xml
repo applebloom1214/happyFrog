@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.happy.happyfrog.DAO.UserMapper">
+    <!--create-->
+    <select id="insert" parameterType="UserDTO">
+        insert into user (id, pw, nickname, introduce)
+        values (#{id},#{pw},#{nickname},#{introduce});
+    </select>
+
+    <!--read-->
+    <select id="read" parameterType="String" resultType="UserDTO">
+        select * from user
+        where id = #{id};
+    </select>
+
+    <!--delete-->
+    <delete id="delete" parameterType="String">
+        delete
+        from user
+        where id = #{id};
+    </delete>
+
+    <!--update-->
+    <update id="update" parameterType="UserDTO">
+        update user
+        set pw = #{pw},
+            nickname = #{nickname},
+            introduce = #{introduce}
+        where id = #{id};
+    </update>
+
+
+
+</mapper>
