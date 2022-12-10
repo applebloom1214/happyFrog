@@ -14,7 +14,7 @@
 <div class="grid-container">
     <!-- header -->
     <jsp:include page="header.jsp"/>
-    <form action="<c:url value="/signin"/>" method="post">
+    <form action="<c:url value="/signin"/>" method="post" onsubmit="return formCheck()">
     <div class="grid-item signin">
         <div class="container">
             <h1>회원 가입</h1>
@@ -43,6 +43,7 @@
                     type="password"
                     placeholder="비밀번호를 다시 한번 입력해주세요"
                     id="pw-repeat"
+                    name = "pw-repeat"
                     required="required">
 
             <label for="nickname">
@@ -65,6 +66,29 @@
 </div>
 </body>
 <script>
+    function formCheck(){
+        let id = document.querySelector("#userid").value;
+        let pw = document.querySelector("#pw").value;
+        let pw2 = document.querySelector("#pw-repeat").value;
+
+        if(pw != pw2){
+            alert("비밀번호가 일치하지 않습니다.")
+            return false;
+        }
+
+        if(id.length < 4){
+            alert("아이디는 4글자 이상이어야 합니다")
+            return false;
+        }
+
+        if(pw.length < 4){
+            alert("비밀번호는 4글자 이상이어야 합니다")
+            return false;
+        }
+
+        alert("회원가입이 완료되었습니다.")
+        return true;
+    }
 
 </script>
 </html>

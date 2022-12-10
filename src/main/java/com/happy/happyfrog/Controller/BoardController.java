@@ -66,14 +66,5 @@ public class BoardController {
     }
 
 
-    @GetMapping("/signin")
-    public String signin(){
-        return "signin";
-    }
 
-    @PostMapping("/signin")
-    public String signinCheck(UserDTO dto){
-        System.out.println("dto = " + dto);
-        return "redirect:/";
-    }
 }
