@@ -25,10 +25,10 @@ public class UserDAOTest {
 
     @Test
     public void read(){
-        String id = "aaa";
+        String id = "abcd";
         UserDTO dto = dao.read(id);
         System.out.println("dto = " + dto);
-        assertTrue(dto.getId().equals("aaa"));
+        assertTrue(dto.getId().equals("abcd"));
     }
 
     @Test

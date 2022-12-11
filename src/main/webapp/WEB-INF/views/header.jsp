@@ -9,8 +9,13 @@
         </div>
         <div class="header-right">
             <a class="active" href="<c:url value='/'/>">Home</a>
-            <a href="<c:url value='/signin'/>">SignUp</a>
-            <a href="<c:url value='/login'/>">Login</a>
+            <c:if test="${id == null}">
+                <a href="<c:url value='/signin'/>">SignUp</a>
+                <a href="<c:url value='/login'/>">Login</a>
+            </c:if>
+            <c:if test="${id != null}">
+                <a href="<c:url value='/logout'/>">Logout</a>
+            </c:if>
         </div>
     </div>
 </div>
