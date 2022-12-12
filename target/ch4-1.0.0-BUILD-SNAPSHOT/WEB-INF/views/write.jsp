@@ -40,7 +40,7 @@
                                     id="chooseFile"
                                     type="file"
                                     onchange="dropFile.handleFiles(this.files)"
-                                    accept="image/png, image/jpeg, image/gif">
+                                    accept="image/png, image/jpeg, image/gif, image/jpg">
                         </div>
                     </div>
                 </div>
@@ -48,6 +48,7 @@
             <div class="writebuttons">
                 <button type="button" onclick="location.href='<c:url value='/'/>';">취소</button>
                 <button type="button" onclick="file_upload()">등록</button>
+                <input type="hidden" id="userid" value="${id}">
             </div>
         </div>
     </div>
@@ -58,9 +59,11 @@
         let file = document.querySelector(".file").files[0];
         let form = new FormData();
         let text = document.querySelector('.titleText').value;
+        let id = document.querySelector("#userid").value;
 
         form.append("file",file);
         form.append("title",text);
+        form.append("id", id);
 
         fetch("http://localhost/happyfrog/write/",{
             method : "POST",
