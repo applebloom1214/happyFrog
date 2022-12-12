@@ -4,6 +4,7 @@ import com.happy.happyfrog.DAO.UserDAO;
 import com.happy.happyfrog.DTO.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -37,12 +38,12 @@ public class UserController {
 
     @PostMapping("login")
     public String login(String id, String pw, boolean remember, HttpServletRequest request,
-                        HttpServletResponse response) throws Exception{
+                        HttpServletResponse response, Model model) throws Exception{
 
         // id와 pw를 확인
         if(!loginCheck(id,pw)){
-            String msg = URLEncoder.encode("id 또는 pw가 일치하지 않습니다.","utf-8");
-            return "redirect:/login?msg="+msg;
+            model.addAttribute("msg","id 또는 pw가 일치하지 않습니다 !");
+            return "login";
         }
 
         // id와 pw가 일치하면 세션 객체에 id를 저장
@@ -68,8 +69,6 @@ public class UserController {
         UserDTO dto = null;
         try{
             dto = dao.read(id);
-            System.out.println("dto = " + dto);
-            System.out.println("dto.getPw() = " + dto.getPw());
         }catch(Exception e){
             e.printStackTrace();
             return false;

@@ -17,13 +17,15 @@
         <div class="imgcontainer">
             <img src="/happyfrog/resources/images/frog.png" alt="Avatar" class="avatar">
         </div>
-
+        <p class="msg" align="center">
+            ${msg}
+        </p>
         <form action="<c:url value="/login"/>" method="post">
         <div class="container">
             <label for="username">
                 <b>ID</b>
             </label>
-            <input type="text" placeholder="ID를 입력해주세요" id="username" name="id" required="required">
+            <input type="text" value="${cookie.id.value}" placeholder="ID를 입력해주세요" id="username" name="id" required="required">
 
             <label for="pw">
                 <b>비밀번호</b>
@@ -45,7 +47,6 @@
 
         <div class="container" style="background-color:#f1f1f1">
             <button type="button" class="cancelbtn" onclick="location.href='<c:url value='/'/>';">돌아가기</button>
-            <p class="msg"></p>
         </div>
     </div>
 </div>

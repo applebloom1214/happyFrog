@@ -32,9 +32,11 @@ public class UploadController {
     }
 
     @PostMapping("/write")
-    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file, @RequestParam("title") String text){
+    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file, @RequestParam("title") String text,
+    @RequestParam("id") String id){
         try {
 
+            System.out.println("id = " + id);
             // 1. text를 가져와서 board 테이블에 insert (기초 기능구현을 위해 작성자와 bno는 아직 없음, 제목만 가져옴 )
             int bno = dao.insert(new BoardDTO("tester",text));
 
