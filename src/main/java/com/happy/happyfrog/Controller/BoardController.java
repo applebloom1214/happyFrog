@@ -1,9 +1,6 @@
 package com.happy.happyfrog.Controller;
 
-import com.happy.happyfrog.DAO.APIDAO;
-import com.happy.happyfrog.DAO.BoardDAO;
-import com.happy.happyfrog.DAO.FileDAO;
-import com.happy.happyfrog.DAO.ReplyDAO;
+import com.happy.happyfrog.DAO.*;
 import com.happy.happyfrog.DTO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,9 +20,12 @@ public class BoardController {
     private ReplyDAO dao;
     @Autowired
     private FileDAO fdao;
+    @Autowired
+    private UserDAO uDao;
 
     @GetMapping("/read")
-    public String read(@RequestParam(defaultValue = "0") Integer bno, Model m){
+    public String read(@RequestParam(defaultValue = "0") Integer bno, @RequestParam(defaultValue = "guest") String id,
+                       Model m){
         BoardDTO board = boardDAO.selectOne(bno);
         List<ReplyDTO> list = dao.read(bno);
         boardDAO.updateHits(bno);
@@ -33,6 +33,17 @@ public class BoardController {
         m.addAttribute("bno",bno);
         m.addAttribute("title",board.getTitle());
         m.addAttribute("rating",board.getRating());
+        if(!id.equals("guest")){
+            UserDTO uDto = uDao.read(id);
+            if(board.getWriter().equals(uDto.getNickname())){
+                m.addAttribute("writerCheck","ok");
+                // 글쓴이만 삭제, 수정 버튼 사용 가능
+            }else{
+                m.addAttribute("replyCheck","ok");
+                // 로그인한 사용자만 리플 달기 가능
+            }
+        }
+
         return "read";
     }
 

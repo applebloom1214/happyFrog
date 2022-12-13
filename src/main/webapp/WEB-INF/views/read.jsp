@@ -34,8 +34,13 @@
         </div>
         <div class="header-right">
             <a class="active" href="<c:url value='/'/>">Home</a>
-            <a href="#signin">SignUp</a>
-            <a href="#Login">Login</a>
+            <c:if test="${id == null}">
+                <a href="<c:url value='/signin'/>">SignUp</a>
+                <a href="<c:url value='/login'/>">Login</a>
+            </c:if>
+            <c:if test="${id != null}">
+                <a href="<c:url value='/logout'/>">Logout</a>
+            </c:if>
         </div>
     </div>
 </div>
@@ -53,6 +58,7 @@
     </div>
     <div class="rating">
         <form name="ratingform" id="ratingform" method="post" action="./save">
+            <c:if test="${replyCheck != null}">
             <!--fieldset - 묶은 요소들 주변을 선으로 감싸준다-->
             <fieldset>
                 <!--legend - fieldset의 caption을 설정한다-->
@@ -94,6 +100,7 @@
                         onclick="checkRadio(this.value);">
                 <label for="rate5">⭐</label>
             </fieldset>
+            </c:if>
             <div id="ratingc">
                 <input type="hidden" id="star">
                 <input type="hidden" id="bno" value="${bno}">
@@ -104,8 +111,10 @@
         </form>
     </div>
     <div class="buttons">
-        <button type="button" class="delete">삭제</button>
-        <button type="button" class="modify">수정</button>
+        <c:if test="${writerCheck != null}">
+            <button type="button" class="delete">삭제</button>
+            <button type="button" class="modify">수정</button>
+        </c:if>
         <button type="button" class="seeReply" onclick="readReply()">리플보기</button>
         <button type="button" class="list" onclick="location.href='<c:url value='/'/>';">목록</button>
     </div>

@@ -48,6 +48,7 @@
           <div class="divTableRow">
             <div class="divTableHead bno">번호</div>
             <div class="divTableHead title">제목</div>
+            <div class="divTableHead writer">작성자</div>
             <div class="divTableHead day">작성일</div>
             <div class="divTableHead rcnt">조회수</div>
             <div class="divTableHead grade">평점</div>
@@ -57,7 +58,8 @@
           <c:forEach var="board" items="${board}">
             <div class="divTableRow">
               <div class="divTableCell">${board.bno}</div>
-              <div class="divTableCell"><a href="<c:url value="/read?bno=${board.bno}"/>">${board.title}</a></div>
+              <div class="divTableCell"><a href="<c:url value="/read?bno=${board.bno}&id=${id}"/>">${board.title}</a></div>
+              <div class="divTableCell">${board.writer}</div>
               <div class="divTableCell"><fmt:formatDate value="${board.regdate}" pattern="yyyy-MM-dd" type="date"/></div>
               <div class="divTableCell">${board.hits}</div>
               <div class="divTableCell">${board.rating}</div>
