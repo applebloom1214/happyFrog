@@ -50,7 +50,14 @@
         <img src="/happyfrog/loadimg?bno=${bno}">
     </div>
     <div class="title">
-        <h1 class="title text">${title}</h1>
+        <c:if test="${writerCheck != null}">
+            <input class="title text" value="${title}" style="border:none;color:green;margin:0.31em;font-size:32px;
+            text-align:center;font-weight:bold">
+        </c:if>
+        <c:if test="${writerCheck == null}">
+            <h1 class="title text">${title}</h1>
+        </c:if>
+
     </div>
     <div class="score">
         <h3>⭐<b>X</b><b class="bscore">${rating}</b>
@@ -104,6 +111,7 @@
             <div id="ratingc">
                 <input type="hidden" id="star">
                 <input type="hidden" id="bno" value="${bno}">
+                <input type="hidden" id="nickName" value="${writer}">
                 <input type="text" id="comment">
                 <button class="ratingRegister" type="button" onclick="replyadd()">평점 등록</button>
             </div>
@@ -220,6 +228,7 @@
             commentList = document.querySelector(".commentList");
             commentList.innerHTML ="";
             let str = "";
+            let writer = document.getElementById("nickName").value;
             let replyLength;
             totalReplyCnt = reply.length;
             if(5 * moreReply <= totalReplyCnt){
@@ -253,13 +262,17 @@
                 str += "😀";
                 str += star;
                 str += replyContent;
-                str += "<button class='replyMod' type='button' onclick='replyModbtn(this)'>";
-                str += "수정</button>";
+                if (reply[i].commenter === writer){
+                    str += "<button class='replyMod' type='button' onclick='replyModbtn(this)'>";
+                    str += "수정</button>";
+                }
                 str += "<input class='cno' type='hidden' value=";
                 str += cno;
                 str += ">";
-                str += "<button class='replyDel' type='button' onclick='replyDel(this)'>";
-                str += "삭제</button>";
+                if (reply[i].commenter === writer) {
+                    str += "<button class='replyDel' type='button' onclick='replyDel(this)'>";
+                    str += "삭제</button>";
+                }
                 str += "<input class='rating' type='hidden' value=";
                 str += reply[i].rating;
                 str += ">";
@@ -275,9 +288,11 @@
     function replyadd(){
         let comment = document.getElementById("comment").value;
         let star = document.getElementById("star").value;
+        let writer = document.getElementById("nickName").value;
         let ReplyDTO = {
             comment : comment,
             rating : star,
+            commenter : writer,
             bno : bno
         }
         // console.log(ReplyDTO);

@@ -31,8 +31,6 @@ public class ReplyController {
     public ResponseEntity<String> write(@RequestBody ReplyDTO dto){
         System.out.println("dto.getReply() = " + dto.getReply());
         System.out.println("dto = " + dto);
-        String commenter = "테스트중";
-        dto.setCommenter(commenter);
         if(dao.insert(dto) == 1){
             boardDAO.updateRating(dto);
             return new ResponseEntity<>("ADD_OK", HttpStatus.OK);

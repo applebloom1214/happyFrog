@@ -40,6 +40,7 @@ public class BoardController {
                 // 글쓴이만 삭제, 수정 버튼 사용 가능
             }else{
                 m.addAttribute("replyCheck","ok");
+                m.addAttribute("writer", uDto.getNickname());
                 // 로그인한 사용자만 리플 달기 가능
             }
         }
