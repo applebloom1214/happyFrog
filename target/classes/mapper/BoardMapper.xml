@@ -53,8 +53,11 @@
         set rating = rating - #{rating}
         where bno = #{bno};
     </update>
-
-
+<!--게시글 하나 DELETE-->
+    <delete id="delete" parameterType="int">
+        delete from hf_board
+        where bno = #{bno};
+    </delete>
 <!--DELETE ALL-->
     <delete id="deleteAll">
         delete from hf_board;
