@@ -50,7 +50,14 @@
         <img src="/happyfrog/loadimg?bno=${bno}">
     </div>
     <div class="title">
-        <h1 class="title text">${title}</h1>
+        <c:if test="${writerCheck != null}">
+            <input id="title" class="title text" value="${title}" style="border:none;color:green;margin:0.31em;font-size:32px;
+            text-align:center;font-weight:bold">
+        </c:if>
+        <c:if test="${writerCheck == null}">
+            <h1 class="title text">${title}</h1>
+        </c:if>
+
     </div>
     <div class="score">
         <h3>⭐<b>X</b><b class="bscore">${rating}</b>
@@ -104,6 +111,7 @@
             <div id="ratingc">
                 <input type="hidden" id="star">
                 <input type="hidden" id="bno" value="${bno}">
+                <input type="hidden" id="nickName" value="${writer}">
                 <input type="text" id="comment">
                 <button class="ratingRegister" type="button" onclick="replyadd()">평점 등록</button>
             </div>
@@ -112,8 +120,10 @@
     </div>
     <div class="buttons">
         <c:if test="${writerCheck != null}">
-            <button type="button" class="delete">삭제</button>
-            <button type="button" class="modify">수정</button>
+            <form id="form">
+            <button type="button" class="delete" onclick="deleteBoard()">삭제</button>
+            <button type="button" class="modify" onclick="updateBoard()">수정</button>
+            </form>
         </c:if>
         <button type="button" class="seeReply" onclick="readReply()">리플보기</button>
         <button type="button" class="list" onclick="location.href='<c:url value='/'/>';">목록</button>
@@ -220,6 +230,7 @@
             commentList = document.querySelector(".commentList");
             commentList.innerHTML ="";
             let str = "";
+            let writer = document.getElementById("nickName").value;
             let replyLength;
             totalReplyCnt = reply.length;
             if(5 * moreReply <= totalReplyCnt){
@@ -253,13 +264,17 @@
                 str += "😀";
                 str += star;
                 str += replyContent;
-                str += "<button class='replyMod' type='button' onclick='replyModbtn(this)'>";
-                str += "수정</button>";
+                if (reply[i].commenter === writer){
+                    str += "<button class='replyMod' type='button' onclick='replyModbtn(this)'>";
+                    str += "수정</button>";
+                }
                 str += "<input class='cno' type='hidden' value=";
                 str += cno;
                 str += ">";
-                str += "<button class='replyDel' type='button' onclick='replyDel(this)'>";
-                str += "삭제</button>";
+                if (reply[i].commenter === writer) {
+                    str += "<button class='replyDel' type='button' onclick='replyDel(this)'>";
+                    str += "삭제</button>";
+                }
                 str += "<input class='rating' type='hidden' value=";
                 str += reply[i].rating;
                 str += ">";
@@ -275,9 +290,11 @@
     function replyadd(){
         let comment = document.getElementById("comment").value;
         let star = document.getElementById("star").value;
+        let writer = document.getElementById("nickName").value;
         let ReplyDTO = {
             comment : comment,
             rating : star,
+            commenter : writer,
             bno : bno
         }
         // console.log(ReplyDTO);
@@ -336,6 +353,36 @@
             .then(() => readReply())
             .then(() => modalClose())
     } // replyMod
+
+    function updateBoard(){
+        let form = document.querySelector("#form");
+        form.setAttribute("action","<c:url value='/update'/>");
+        form.setAttribute("method","POST");
+        let updateInput = document.createElement("input");
+        updateInput.setAttribute("type","hidden");
+        updateInput.setAttribute("name","bno");
+        updateInput.setAttribute("value",bno);
+        let updateInput2 = document.createElement("input");
+        updateInput2.setAttribute("type","hidden");
+        updateInput2.setAttribute("name","title");
+        let title = document.querySelector("#title").value;
+        updateInput2.setAttribute("value",title);
+        form.appendChild(updateInput);
+        form.appendChild(updateInput2);
+        form.submit();
+    }
+
+    function deleteBoard(){
+        let form = document.querySelector("#form");
+        form.setAttribute("action","<c:url value='/delete'/>");
+        form.setAttribute("method","POST");
+        let updateInput = document.createElement("input");
+        updateInput.setAttribute("type","hidden");
+        updateInput.setAttribute("name","bno");
+        updateInput.setAttribute("value",bno);
+        form.appendChild(updateInput);
+        form.submit();
+    }
 
 </script>
 </html>

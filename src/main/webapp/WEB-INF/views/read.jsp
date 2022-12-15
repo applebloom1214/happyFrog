@@ -51,7 +51,7 @@
     </div>
     <div class="title">
         <c:if test="${writerCheck != null}">
-            <input class="title text" value="${title}" style="border:none;color:green;margin:0.31em;font-size:32px;
+            <input id="title" class="title text" value="${title}" style="border:none;color:green;margin:0.31em;font-size:32px;
             text-align:center;font-weight:bold">
         </c:if>
         <c:if test="${writerCheck == null}">
@@ -120,8 +120,10 @@
     </div>
     <div class="buttons">
         <c:if test="${writerCheck != null}">
-            <button type="button" class="delete">삭제</button>
-            <button type="button" class="modify">수정</button>
+            <form id="form">
+            <button type="button" class="delete" onclick="deleteBoard()">삭제</button>
+            <button type="button" class="modify" onclick="updateBoard()">수정</button>
+            </form>
         </c:if>
         <button type="button" class="seeReply" onclick="readReply()">리플보기</button>
         <button type="button" class="list" onclick="location.href='<c:url value='/'/>';">목록</button>
@@ -351,6 +353,36 @@
             .then(() => readReply())
             .then(() => modalClose())
     } // replyMod
+
+    function updateBoard(){
+        let form = document.querySelector("#form");
+        form.setAttribute("action","<c:url value='/update'/>");
+        form.setAttribute("method","POST");
+        let updateInput = document.createElement("input");
+        updateInput.setAttribute("type","hidden");
+        updateInput.setAttribute("name","bno");
+        updateInput.setAttribute("value",bno);
+        let updateInput2 = document.createElement("input");
+        updateInput2.setAttribute("type","hidden");
+        updateInput2.setAttribute("name","title");
+        let title = document.querySelector("#title").value;
+        updateInput2.setAttribute("value",title);
+        form.appendChild(updateInput);
+        form.appendChild(updateInput2);
+        form.submit();
+    }
+
+    function deleteBoard(){
+        let form = document.querySelector("#form");
+        form.setAttribute("action","<c:url value='/delete'/>");
+        form.setAttribute("method","POST");
+        let updateInput = document.createElement("input");
+        updateInput.setAttribute("type","hidden");
+        updateInput.setAttribute("name","bno");
+        updateInput.setAttribute("value",bno);
+        form.appendChild(updateInput);
+        form.submit();
+    }
 
 </script>
 </html>

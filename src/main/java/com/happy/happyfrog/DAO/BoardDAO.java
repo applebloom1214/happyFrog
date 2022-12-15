@@ -21,6 +21,10 @@ public class BoardDAO {
         return session.selectOne(namespace+"count");
     }
 
+    public int delete(Integer bno){
+        return session.delete(namespace+"delete",bno);
+    }
+
     public int deleteAll(){
         return session.delete(namespace+"deleteAll");
     }

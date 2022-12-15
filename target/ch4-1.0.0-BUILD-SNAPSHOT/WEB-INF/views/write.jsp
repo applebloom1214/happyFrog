@@ -22,8 +22,8 @@
     <div class="grid-item">
         <div class="write">
             <div class="title">
-                <label>제목</label>
-                <input type="text" class="titleText" placeholder="제목을 입력해주세요">
+                <input type="text" class="titleText" placeholder="제목을 입력해주세요"
+                       style="width:500px;height:50px;font-size:20px;">
             </div>
             <div class="upload">
                 <div id="root">

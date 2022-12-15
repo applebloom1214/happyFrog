@@ -25,6 +25,14 @@ public class BoardDAOTest {
     }
 
     @Test
+    public void delete(){
+        int bno = 31;
+        int result = boardDAO.delete(bno);
+        assertTrue(result == 1);
+
+    }
+
+    @Test
     public void deleteAll(){
         int result = boardDAO.deleteAll();
         assertTrue(result==1);

@@ -77,6 +77,22 @@ public class BoardController {
         return null;
     }
 
+    @PostMapping("/update")
+    public String update(Integer bno, String title){
+        BoardDTO dto = new BoardDTO();
+        dto.setBno(bno);
+        dto.setTitle(title);
+        boardDAO.update(dto);
+        return "redirect:/";
+    }
+
+    @PostMapping("/delete")
+    public String delete(Integer bno){
+        boardDAO.delete(bno);
+        return "redirect:/";
+    }
+
+
 
 
 }
