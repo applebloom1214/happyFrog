@@ -7,6 +7,7 @@ public class SearchDTO {
     private Integer PAGE_SIZE = 10; // 한 페이지당 보여줄 글갯수, 기본 10
     private String option = ""; // 검색 옵션
     private String keyword =""; // 검색 키워드
+    private String sort = ""; // 정렬 방식
 
     public SearchDTO(){
 
@@ -32,6 +33,7 @@ public class SearchDTO {
                 .queryParam("page",page)
                 .queryParam("option",option)
                 .queryParam("keyword",keyword)
+                .queryParam("sort",sort)
                 .build().toString();
     }
 
@@ -71,6 +73,14 @@ public class SearchDTO {
         return (page-1)*PAGE_SIZE;
     }
 
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
+
     @Override
     public String toString() {
         return "SearchDTO{" +
@@ -80,4 +90,5 @@ public class SearchDTO {
                 ", keyword='" + keyword + '\'' +
                 '}';
     }
+
 }

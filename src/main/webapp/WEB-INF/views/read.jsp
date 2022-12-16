@@ -63,7 +63,7 @@
         <h3>⭐<b>X</b><b class="bscore">${rating}</b>
         </h3>
     </div>
-    <div class="rating">
+    <div class="rating" id="rating">
         <form name="ratingform" id="ratingform" method="post" action="./save">
             <c:if test="${replyCheck != null}">
             <!--fieldset - 묶은 요소들 주변을 선으로 감싸준다-->
@@ -305,8 +305,8 @@
             },
             body : JSON.stringify(ReplyDTO)
         })
-        .then( () =>      document
-            .getElementById("ratingc")
+        .then( () =>
+            document.getElementById("rating")
             .style
             .display = "none")
         .then(() => alert("댓글이 등록되었습니다."))

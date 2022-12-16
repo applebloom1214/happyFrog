@@ -56,6 +56,13 @@ public class ReplyDAOTest {
     }
 
     @Test
+    public void replyCheck(){
+        ReplyDTO dto = new ReplyDTO();
+        dto.setBno(289); dto.setCommenter("테스트중");
+        assertTrue(dao.replyCheck(dto) != null);
+    }
+
+    @Test
     public void update(){
         ReplyDTO dto = new ReplyDTO("수정","작성자");
         dto.setCno(2);

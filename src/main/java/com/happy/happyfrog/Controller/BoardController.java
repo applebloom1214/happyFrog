@@ -39,7 +39,11 @@ public class BoardController {
                 m.addAttribute("writerCheck","ok");
                 // 글쓴이만 삭제, 수정 버튼 사용 가능
             }else{
-                m.addAttribute("replyCheck","ok");
+                ReplyDTO rDTO = new ReplyDTO();
+                rDTO.setBno(bno); rDTO.setCommenter(uDto.getNickname());
+                if(dao.replyCheck(rDTO) == null){ // 평점은 한번만 달게끔 한다.
+                    m.addAttribute("replyCheck","ok");
+                }
                 m.addAttribute("writer", uDto.getNickname());
                 // 로그인한 사용자만 리플 달기 가능
             }
@@ -49,12 +53,22 @@ public class BoardController {
     }
 
     @RequestMapping("/")
-    public String list(SearchDTO sd, Model m)
+    public String list(SearchDTO sd, Model m, @RequestParam(defaultValue = "default") String sort)
     {
         System.out.println("sd = " + sd);
         PagingDTO pagingDTO = new PagingDTO(boardDAO.searchCnt(sd),sd);
         // offset 공식 :  (page-1) * pagesize(10이 기본값)
-        List<BoardDTO> list = boardDAO.searchList(sd);
+        List<BoardDTO> list;
+        if(sort.equals("default")){
+            list = boardDAO.searchList(sd);
+        }else if(sort.equals("read")){
+            list = boardDAO.searchListRead(sd);
+        }else if(sort.equals("grade")){
+            list = boardDAO.searchListRating(sd);
+        }else{
+            list = boardDAO.searchListRandom(sd);
+        }
+        m.addAttribute("sort",sort);
         m.addAttribute("board",list);
         m.addAttribute("pageDTO",pagingDTO);
         m.addAttribute("finedust",new APIDAO().getFinddust());

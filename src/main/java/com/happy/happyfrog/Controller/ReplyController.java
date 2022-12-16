@@ -29,11 +29,13 @@ public class ReplyController {
 
     @PostMapping("/")
     public ResponseEntity<String> write(@RequestBody ReplyDTO dto){
-        System.out.println("dto.getReply() = " + dto.getReply());
-        System.out.println("dto = " + dto);
-        if(dao.insert(dto) == 1){
-            boardDAO.updateRating(dto);
-            return new ResponseEntity<>("ADD_OK", HttpStatus.OK);
+        if(dao.replyCheck(dto) == null){ // 평점은 한번만 달게끔 한다.
+            if(dao.insert(dto) == 1){
+                boardDAO.updateRating(dto);
+                return new ResponseEntity<>("ADD_OK", HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>("ADD_FAIL", HttpStatus.BAD_REQUEST);
+            }
         }else{
             return new ResponseEntity<>("ADD_FAIL", HttpStatus.BAD_REQUEST);
         }

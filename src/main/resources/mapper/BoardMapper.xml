@@ -90,7 +90,7 @@
 
 
 
-<!--검색결과 셀렉트-->
+<!--검색결과 셀렉트 기본-->
 
     <select id="searchSelectPage" parameterType="SearchDTO" resultType="BoardDto">
         <include refid="selectFromBoard"/>
@@ -99,7 +99,32 @@
         LIMIT #{offset}, 10
     </select>
 
+    <!--검색결과 셀렉트 조회수-->
 
+    <select id="searchSelectPageHits" parameterType="SearchDTO" resultType="BoardDto">
+        <include refid="selectFromBoard"/>
+        <include refid="search"/>
+        ORDER BY hits DESC, bno DESC
+        LIMIT #{offset}, 10
+    </select>
+
+    <!--검색결과 셀렉트 평점-->
+
+    <select id="searchSelectPageRating" parameterType="SearchDTO" resultType="BoardDto">
+        <include refid="selectFromBoard"/>
+        <include refid="search"/>
+        ORDER BY rating DESC, bno DESC
+        LIMIT #{offset}, 10
+    </select>
+
+    <!--검색결과 셀렉트 랜덤-->
+
+    <select id="searchSelectPageRandom" parameterType="SearchDTO" resultType="BoardDto">
+        <include refid="selectFromBoard"/>
+        <include refid="search"/>
+        ORDER BY rand()
+        LIMIT #{offset}, 10
+    </select>
 
     <!--테스트용 select 10개-->
     <select id="select10" resultType="BoardDTO">

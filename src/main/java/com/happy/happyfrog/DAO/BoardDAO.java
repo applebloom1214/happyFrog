@@ -70,5 +70,17 @@ public class BoardDAO {
         return session.selectList(namespace+"searchSelectPage",sd);
     }
 
+    public List<BoardDTO> searchListRead(SearchDTO sd){
+        return session.selectList(namespace+"searchSelectPageHits",sd);
+    }
+
+    public List<BoardDTO> searchListRating(SearchDTO sd){
+        return session.selectList(namespace+"searchSelectPageRating",sd);
+    }
+
+    public List<BoardDTO> searchListRandom(SearchDTO sd){
+        return session.selectList(namespace+"searchSelectPageRandom",sd);
+    }
+
 
 }
