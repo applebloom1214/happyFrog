@@ -39,9 +39,9 @@
   <div class="grid-item">
     <div class="table">
       <div class="sort">
-        <button class="reply">댓글순</button>
-        <button class="grade">평점순</button>
-        <button class="random">랜덤</button>
+        <button class="reply" onclick="location.href='<c:url value='/?sort=read'/>';">조회순</button>
+        <button class="grade" onclick="location.href='<c:url value='/?sort=grade'/>';">평점순</button>
+        <button class="random" onclick="location.href='<c:url value='/?sort=random'/>';">랜덤</button>
       </div>
       <div class="divTable blueTable">
         <div class="divTableHeading">

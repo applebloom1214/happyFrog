@@ -36,6 +36,12 @@
         where cno = #{cno};
     </select>
 
+<!--bno와 nickname으로 이미 등록한 리플이 있는지 확인하는 쿼리문-->
+    <select id="replyCheck" parameterType="ReplyDTO" resultType="ReplyDTO">
+        select * from reply
+        where bno = #{bno} and commenter = #{commenter};
+    </select>
+
 <!--update-->
     <update id="update" parameterType="ReplyDTO">
         update reply
