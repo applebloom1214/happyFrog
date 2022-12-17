@@ -25,9 +25,17 @@ public class BoardController {
 
     @GetMapping("/read")
     public String read(@RequestParam(defaultValue = "0") Integer bno, @RequestParam(defaultValue = "guest") String id,
-                       Model m){
-        BoardDTO board = boardDAO.selectOne(bno);
-        List<ReplyDTO> list = dao.read(bno);
+                       @RequestParam(defaultValue = "default") String sort, Model m){
+        BoardDTO board;
+        List<ReplyDTO> list;
+        if(sort.equals("random")){
+            board = boardDAO.searchListRandom();
+            bno = board.getBno();
+            list = dao.read(bno);
+        }else{
+            board = boardDAO.selectOne(bno);
+            list = dao.read(bno);
+        }
         boardDAO.updateHits(bno);
         m.addAttribute("reply",list);
         m.addAttribute("bno",bno);
@@ -63,10 +71,8 @@ public class BoardController {
             list = boardDAO.searchList(sd);
         }else if(sort.equals("read")){
             list = boardDAO.searchListRead(sd);
-        }else if(sort.equals("grade")){
-            list = boardDAO.searchListRating(sd);
         }else{
-            list = boardDAO.searchListRandom(sd);
+            list = boardDAO.searchListRating(sd);
         }
         m.addAttribute("sort",sort);
         m.addAttribute("board",list);

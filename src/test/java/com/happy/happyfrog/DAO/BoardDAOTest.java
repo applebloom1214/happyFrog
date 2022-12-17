@@ -68,6 +68,12 @@ public class BoardDAOTest {
     }
 
     @Test
+    public void searchListRandom(){
+        BoardDTO dto = boardDAO.searchListRandom();
+        System.out.println("dto = " + dto);
+    }
+
+    @Test
     public void select10(){
         List<BoardDTO> list = boardDAO.select10();
 
