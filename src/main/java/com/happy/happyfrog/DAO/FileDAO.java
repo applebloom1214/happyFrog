@@ -1,35 +1,15 @@
 package com.happy.happyfrog.DAO;
 
 import com.happy.happyfrog.DTO.FileDTO;
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
+public interface FileDAO {
+    int insert(FileDTO dto);
 
-@Repository
-public class FileDAO {
-    @Autowired
-    private SqlSession session;
+    FileDTO read(int bno);
 
-    private static String namespace = "com.happy.happyfrog.DAO.FileMapper.";
+    int update(FileDTO dto);
 
-    public int insert(FileDTO dto){
-        return session.insert(namespace+"insert",dto);
-    }
+    int deleteAll();
 
-    public FileDTO read(int bno){
-        return session.selectOne(namespace+"read",bno);
-    }
-
-    public int update(FileDTO dto){
-        return session.update(namespace+"update",dto);
-    }
-
-    public int deleteAll(){
-        return session.delete(namespace+"deleteAll");
-    }
-
-    public int delete(int bno){
-        return session.delete(namespace+"delete",bno);
-    }
+    int delete(int bno);
 }

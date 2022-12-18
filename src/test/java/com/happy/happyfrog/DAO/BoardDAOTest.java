@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 public class BoardDAOTest {
     @Autowired
-    private BoardDAO boardDAO;
+    private BoardDAOImpl boardDAO;
 
     @Test
     public void count() {

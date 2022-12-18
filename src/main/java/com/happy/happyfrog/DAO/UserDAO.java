@@ -1,31 +1,13 @@
 package com.happy.happyfrog.DAO;
 
 import com.happy.happyfrog.DTO.UserDTO;
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public class UserDAO {
+public interface UserDAO {
+    int insert(UserDTO dto);
 
-    @Autowired
-    private SqlSession session;
+    UserDTO read(String id);
 
-    private static String namespace = "com.happy.happyfrog.DAO.UserMapper.";
+    int delete(String id);
 
-    public int insert(UserDTO dto){
-        return session.insert(namespace+"insert",dto);
-    }
-
-    public UserDTO read(String id){
-        return session.selectOne(namespace+"read",id);
-    }
-
-    public int delete(String id){
-        return session.delete(namespace+"delete",id);
-    }
-
-    public int update(UserDTO dto){
-        return session.update(namespace+"update",dto);
-    }
+    int update(UserDTO dto);
 }

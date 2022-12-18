@@ -117,13 +117,11 @@
         LIMIT #{offset}, 10
     </select>
 
-    <!--검색결과 셀렉트 랜덤-->
+    <!--검색결과 랜덤하게 게시글 하나 추출-->
 
-    <select id="searchSelectPageRandom" parameterType="SearchDTO" resultType="BoardDto">
+    <select id="searchSelectPageRandom" resultType="BoardDto">
         <include refid="selectFromBoard"/>
-        <include refid="search"/>
-        ORDER BY rand()
-        LIMIT #{offset}, 10
+        ORDER BY rand() LIMIT 1;
     </select>
 
     <!--테스트용 select 10개-->

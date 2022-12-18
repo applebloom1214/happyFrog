@@ -1,50 +1,23 @@
 package com.happy.happyfrog.DAO;
 
 import com.happy.happyfrog.DTO.ReplyDTO;
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public class ReplyDAO {
-    @Autowired
-    private SqlSession session;
+public interface ReplyDAO {
+    int count();
 
-    private static String namespace = "com.happy.happyfrog.DAO.ReplyMapper.";
+    int insert(ReplyDTO dto);
 
-    public int count(){
-        return session.selectOne(namespace+"count");
-    }
+    List<ReplyDTO> read(int bno);
 
-    public int insert(ReplyDTO dto){
-        return session.insert(namespace+"insert",dto);
-    }
+    ReplyDTO readCno(int cno);
 
-    public List<ReplyDTO> read(int bno){
-        return session.selectList(namespace+"read",bno);
-    }
+    ReplyDTO replyCheck(ReplyDTO dto);
 
-    public ReplyDTO readCno(int cno){
-        return session.selectOne(namespace+"readCno",cno);
-    }
+    int update(ReplyDTO dto);
 
-    public ReplyDTO replyCheck(ReplyDTO dto){
-        return session.selectOne(namespace + "replyCheck",dto);
-    }
+    int deleteAll();
 
-    public int update(ReplyDTO dto){
-        return session.update(namespace+"update",dto);
-    }
-
-    public int deleteAll(){
-        return session.delete(namespace+"deleteAll");
-    }
-
-    public int delete(int cno){
-        return session.delete(namespace+"delete",cno);
-    }
-
-
+    int delete(int cno);
 }

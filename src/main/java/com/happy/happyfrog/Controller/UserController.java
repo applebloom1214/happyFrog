@@ -2,6 +2,7 @@ package com.happy.happyfrog.Controller;
 
 import com.happy.happyfrog.DAO.UserDAO;
 import com.happy.happyfrog.DTO.UserDTO;
+import com.happy.happyfrog.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,7 @@ import java.net.URLEncoder;
 @Controller
 public class UserController {
     @Autowired
-    UserDAO dao;
+    private UserService userService;
 
     @GetMapping("/signin")
     public String signin(){
@@ -27,7 +28,7 @@ public class UserController {
     @PostMapping("/signin")
     public String signinCheck(UserDTO dto){
         System.out.println("dto = " + dto);
-        dao.insert(dto);
+        userService.insert(dto);
         return "redirect:/";
     }
 
@@ -68,7 +69,7 @@ public class UserController {
     private boolean loginCheck(String id, String pw){
         UserDTO dto = null;
         try{
-            dto = dao.read(id);
+            dto = userService.read(id);
         }catch(Exception e){
             e.printStackTrace();
             return false;

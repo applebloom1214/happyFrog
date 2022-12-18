@@ -3,84 +3,39 @@ package com.happy.happyfrog.DAO;
 import com.happy.happyfrog.DTO.BoardDTO;
 import com.happy.happyfrog.DTO.ReplyDTO;
 import com.happy.happyfrog.DTO.SearchDTO;
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public class BoardDAO {
+public interface BoardDAO {
+    int count();
 
-    @Autowired
-    private SqlSession session;
+    int delete(Integer bno);
 
-    private static String namespace = "com.happy.happyfrog.DAO.BoardMapper.";
+    int deleteAll();
 
-    public int count(){
-        return session.selectOne(namespace+"count");
-    }
+    int insert(BoardDTO boardDTO);
 
-    public int delete(Integer bno){
-        return session.delete(namespace+"delete",bno);
-    }
+    BoardDTO selectOne(Integer bno);
 
-    public int deleteAll(){
-        return session.delete(namespace+"deleteAll");
-    }
+    List<BoardDTO> select10();
 
-    public int insert(BoardDTO boardDTO){
-        session.insert(namespace+"insert",boardDTO);
-        return boardDTO.getBno();
-    }
+    int update(BoardDTO boardDTO);
 
-    public BoardDTO selectOne(Integer bno){
-        return session.selectOne(namespace+"selectOne",bno);
-    }
+    int updateHits(Integer bno);
 
-    public List<BoardDTO> select10(){
-        return session.selectList(namespace+"select10");
-    }
+    int updateRating(ReplyDTO dto);
 
-    public int update(BoardDTO boardDTO){
-        return session.update(namespace+"update",boardDTO);
-    }
+    int deleteRating(ReplyDTO dto);
 
-    public int updateHits(Integer bno){
-        return session.update("updateHits",bno);
-    }
+    List<BoardDTO> selectPage(Integer offset);
 
-    public int updateRating(ReplyDTO dto){
-        return session.update("updateRating", dto);
-    }
+    int searchCnt(SearchDTO sd);
 
-    public int deleteRating(ReplyDTO dto){
-        return session.update("deleteRating", dto);
-    }
+    List<BoardDTO> searchList(SearchDTO sd);
 
-    public List<BoardDTO> selectPage(Integer offset){
-        return session.selectList(namespace+"selectPage",offset);
-    }
+    List<BoardDTO> searchListRead(SearchDTO sd);
 
-    public int searchCnt(SearchDTO sd){
-        return session.selectOne(namespace+"searchCnt",sd);
-    }
+    List<BoardDTO> searchListRating(SearchDTO sd);
 
-    public List<BoardDTO> searchList(SearchDTO sd){
-        return session.selectList(namespace+"searchSelectPage",sd);
-    }
-
-    public List<BoardDTO> searchListRead(SearchDTO sd){
-        return session.selectList(namespace+"searchSelectPageHits",sd);
-    }
-
-    public List<BoardDTO> searchListRating(SearchDTO sd){
-        return session.selectList(namespace+"searchSelectPageRating",sd);
-    }
-
-    public BoardDTO searchListRandom(){
-        return session.selectOne(namespace+"searchSelectPageRandom");
-    }
-
-
+    BoardDTO searchListRandom();
 }

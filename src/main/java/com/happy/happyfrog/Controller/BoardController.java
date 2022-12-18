@@ -2,6 +2,7 @@ package com.happy.happyfrog.Controller;
 
 import com.happy.happyfrog.DAO.*;
 import com.happy.happyfrog.DTO.*;
+import com.happy.happyfrog.Service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,13 +16,7 @@ import java.util.List;
 @Controller
 public class BoardController {
     @Autowired
-    private BoardDAO boardDAO;
-    @Autowired
-    private ReplyDAO dao;
-    @Autowired
-    private FileDAO fdao;
-    @Autowired
-    private UserDAO uDao;
+    private BoardService boardService;
 
     @GetMapping("/read")
     public String read(@RequestParam(defaultValue = "0") Integer bno, @RequestParam(defaultValue = "guest") String id,
@@ -29,27 +24,27 @@ public class BoardController {
         BoardDTO board;
         List<ReplyDTO> list;
         if(sort.equals("random")){
-            board = boardDAO.searchListRandom();
+            board = boardService.getRandomList();
             bno = board.getBno();
-            list = dao.read(bno);
+            list = boardService.getReplyList(bno);
         }else{
-            board = boardDAO.selectOne(bno);
-            list = dao.read(bno);
+            board = boardService.getOneList(bno);
+            list = boardService.getReplyList(bno);
         }
-        boardDAO.updateHits(bno);
+        boardService.updateHits(bno);
         m.addAttribute("reply",list);
         m.addAttribute("bno",bno);
         m.addAttribute("title",board.getTitle());
         m.addAttribute("rating",board.getRating());
         if(!id.equals("guest")){
-            UserDTO uDto = uDao.read(id);
+            UserDTO uDto = boardService.getUser(id);
             if(board.getWriter().equals(uDto.getNickname())){
                 m.addAttribute("writerCheck","ok");
                 // 글쓴이만 삭제, 수정 버튼 사용 가능
             }else{
                 ReplyDTO rDTO = new ReplyDTO();
                 rDTO.setBno(bno); rDTO.setCommenter(uDto.getNickname());
-                if(dao.replyCheck(rDTO) == null){ // 평점은 한번만 달게끔 한다.
+                if(boardService.CheckReply(rDTO) == null){ // 평점은 한번만 달게끔 한다.
                     m.addAttribute("replyCheck","ok");
                 }
                 m.addAttribute("writer", uDto.getNickname());
@@ -64,20 +59,20 @@ public class BoardController {
     public String list(SearchDTO sd, Model m, @RequestParam(defaultValue = "default") String sort)
     {
         System.out.println("sd = " + sd);
-        PagingDTO pagingDTO = new PagingDTO(boardDAO.searchCnt(sd),sd);
+        PagingDTO pagingDTO = new PagingDTO(boardService.searchCnt(sd),sd);
         // offset 공식 :  (page-1) * pagesize(10이 기본값)
         List<BoardDTO> list;
         if(sort.equals("default")){
-            list = boardDAO.searchList(sd);
+            list = boardService.searchList(sd);
         }else if(sort.equals("read")){
-            list = boardDAO.searchListRead(sd);
+            list = boardService.searchListRead(sd);
         }else{
-            list = boardDAO.searchListRating(sd);
+            list = boardService.searchListRating(sd);
         }
         m.addAttribute("sort",sort);
         m.addAttribute("board",list);
         m.addAttribute("pageDTO",pagingDTO);
-        m.addAttribute("finedust",new APIDAO().getFinddust());
+        m.addAttribute("finedust",new APIDAOImpl().getFinddust());
         return "index";
     }
 
@@ -85,7 +80,7 @@ public class BoardController {
     public String showImg(@RequestParam(value = "bno") String bno, HttpServletResponse response) throws Exception{
         response.setContentType("image/jpg");
         ServletOutputStream sos = response.getOutputStream();
-        FileDTO dto =fdao.read((Integer.parseInt(bno)));
+        FileDTO dto =boardService.readFile((Integer.parseInt(bno)));
         String imgPath = dto.getUploadPath()+"/"+dto.getUuid()+"_"+dto.getFileName();
         System.out.println("imgPath = " + imgPath);
         FileInputStream input = new FileInputStream(imgPath);
@@ -102,13 +97,13 @@ public class BoardController {
         BoardDTO dto = new BoardDTO();
         dto.setBno(bno);
         dto.setTitle(title);
-        boardDAO.update(dto);
+        boardService.update(dto);
         return "redirect:/";
     }
 
     @PostMapping("/delete")
     public String delete(Integer bno){
-        boardDAO.delete(bno);
+        boardService.delete(bno);
         return "redirect:/";
     }
 
