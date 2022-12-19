@@ -1,0 +1,3 @@
+1. db 접속 id 수정 : root - > happyfrog
+2. write.jsp ajax 주소 수정 : http://localhost/happyfrog/write/ -> http://3.35.219.117:8080/happyfrog/write/
+3. read.jsp ajax 주소 수정 localhost 부분 3.35.219.117:8080 으로 수정
