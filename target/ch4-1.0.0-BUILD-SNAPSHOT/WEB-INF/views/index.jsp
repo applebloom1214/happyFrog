@@ -41,7 +41,7 @@
       <div class="sort">
         <button class="reply" onclick="location.href='<c:url value='/?sort=read'/>';">조회순</button>
         <button class="grade" onclick="location.href='<c:url value='/?sort=grade'/>';">평점순</button>
-        <button class="random" onclick="location.href='<c:url value='/read?sort=random'/>';">랜덤</button>
+        <button class="random" onclick="location.href='<c:url value='/read?sort=random&id=${id}'/>';">랜덤</button>
       </div>
       <div class="divTable blueTable">
         <div class="divTableHeading">

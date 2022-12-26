@@ -240,7 +240,8 @@
             }
 
             for (let i = 0; i < replyLength; i++) {
-                let replyContent = reply[i].reply;
+                let replyCommenter = reply[i].commenter;
+                let replyComment = reply[i].comment;
                 let star = "";
                 let cno = reply[i].cno;
                 switch (reply[i].rating) {
@@ -263,7 +264,12 @@
                 str += "<div class='comment'>";
                 str += "😀";
                 str += star;
-                str += replyContent;
+                str += "&nbsp";
+                str += "<span class='spanCommenter' style='color: black'>";
+                str += replyCommenter;
+                str += "</span>";
+                str += "&nbsp";
+                str += replyComment;
                 if (reply[i].commenter === writer){
                     str += "<button class='replyMod' type='button' onclick='replyModbtn(this)'>";
                     str += "수정</button>";
