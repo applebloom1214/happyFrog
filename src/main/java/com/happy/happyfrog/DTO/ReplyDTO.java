@@ -90,11 +90,6 @@ public class ReplyDTO {
         this.rating = rating;
     }
 
-    public String getReply(){
-        return " "+getCommenter()+" "+getComment();
-    }
-
-
     @Override
     public String toString() {
         return "ReplyDTO{" +
